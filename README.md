@@ -21,11 +21,11 @@ npm run build
 npm run preview -- --port 5180
 ```
 
-Upload the contents of `dist/` to a static host at the domain root. Hash routing means the demo does not need server rewrites. No database, environment variables, authentication or API is required.
+Upload the contents of `dist/` to a static host at the domain root. Hash routing means the demo does not need server rewrites. The pages and demo remain self-contained; the trial application form requires the existing SYRIAN MENU API and its Support migration. See [trial integration](docs/trial-integration.md). No credentials belong in this frontend.
 
 Vercel settings for this repository are pinned in `vercel.json`: Vite, `npm ci`, `npm run build`, `dist`, Node.js 24. The company website repository is `SaadSinan-dev/Syrian-Menu-Landing-Page`; its production branch is `main`. Cloud connection and verification details are recorded in [docs/vercel-deployment.md](docs/vercel-deployment.md). The local configuration does not establish or prove the GitHub integration by itself.
 
-The QR codes are generated locally from the current website URL and point to its demo. On a public deployment they use the public URL automatically. A QR generated while using localhost points to localhost and is only usable on that computer. No analytics or external requests are made by the application itself.
+The QR codes are generated locally from the current website URL and point to its demo. On a public deployment they use the public URL automatically. A QR generated while using localhost points to localhost and is only usable on that computer. No analytics are used. Trial applications are sent to the configured API only when submitted.
 
 ## WhatsApp configuration
 
@@ -82,6 +82,6 @@ With the development server running on port 5180, `node scripts/capture.mjs` sav
 
 ## Product references and assets
 
-The original application in `../syrian-menu` was inspected, including its public `MenuExperience`, `MenuRenderer`, `MenuSpotlight`, image treatment, dish details, Arabic/English language conventions and branding. This site adapts those conventions into local components without importing its API, router, authentication or database code. The existing Admin, Dashboard, Menu and API applications were not changed.
+The original application in `../syrian-menu` was inspected, including its public `MenuExperience`, `MenuRenderer`, `MenuSpotlight`, image treatment, dish details, Arabic/English language conventions and branding. This site adapts those conventions into local components without importing its router, authentication or database code. The trial form calls a small backend Support extension; it requires no changes to the Admin, Dashboard or Public Menu interfaces.
 
 Logo, food images and fonts were copied from that project's `apps/menu/public/` assets. The WebP images were optimized; dish cards use dedicated 480-pixel thumbnails. Brand assets remain separate from the fictional restaurant identity. Everything needed at runtime is included under `public/`; no third-party image or font hosts are needed.

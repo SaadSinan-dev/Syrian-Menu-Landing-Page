@@ -86,6 +86,7 @@ const en = {
     dishNote: 'A little tradition. A lot of flavor.',
     english: 'English',
     arabic: 'Arabic',
+    previews: ['Your identity', 'Dish details', 'Clear categories', 'Two languages'],
     items: [
       {
         title: 'Your restaurant. Your character.',
@@ -280,6 +281,7 @@ const ar: typeof en = {
     dishNote: 'أصالة في الوصفة. غنى في المذاق.',
     english: 'الإنجليزية',
     arabic: 'العربية',
+    previews: ['هويتك الخاصة', 'تفاصيل أطباقك', 'أقسام واضحة', 'بلغتين'],
     items: [
       {
         title: 'مطعمك. هويتك. حكايتك.',

@@ -30,9 +30,6 @@
 .hero-photo {
   animation: hero-photo-in 1000ms 90ms var(--ease-out) both;
 }
-.hero-photo > img {
-  animation: photo-settle 1500ms 100ms var(--ease-out) both;
-}
 .hero-phone {
   animation: phone-arrive 1100ms 170ms var(--ease-out) both;
   --phone-tilt: 4deg;
@@ -124,10 +121,13 @@
 .step-icon > svg {
   transition: transform 320ms var(--ease-out);
 }
-.feature-food,
 .experience-table > img,
 .dish-card img {
   transition: transform 700ms var(--ease-out);
+}
+.feature-dish-label {
+  transition: transform 300ms var(--ease-out), box-shadow 300ms ease;
+  transform-origin: center;
 }
 .cloud-body {
   animation: cloud-drift 13s 800ms ease-in-out infinite alternate;
@@ -226,8 +226,9 @@
   .step:hover .step-icon > svg {
     transform: scale(1.08);
   }
-  .feature-visual:hover .feature-food {
-    transform: scale(1.018);
+  .feature-dish-label:hover {
+    transform: scale(1.025);
+    box-shadow: 0 12px 30px #273e261c;
   }
   .experience-table:hover > img {
     transform: rotate(-10deg) scale(1.02);
@@ -424,7 +425,8 @@
     opacity: 1;
   }
   .button:hover,
-  .preference-button:hover {
+  .preference-button:hover,
+  .feature-dish-label:hover {
     transform: none;
   }
   .cloud-body {

@@ -25,6 +25,7 @@ import { QR } from './components/QR'
 import { CloudCTA } from './components/CloudCTA'
 import { PreferenceControls } from './components/PreferenceControls'
 import { FlowArrow } from './components/FlowArrow'
+import { TrialApplication } from './components/TrialApplication'
 import { contact, resolveWhatsApp } from './config/contact'
 import { useCopy } from './i18n/useCopy'
 import { formatMessage } from './i18n/messages'
@@ -137,21 +138,7 @@ function Hero() {
         </div>
       </div>
       <div className="hero-stage">
-        <div className="hero-photo">
-          <img
-            src="/images/syrian-table.webp"
-            alt={t.photoAlt}
-            width="768"
-            height="900"
-            fetchPriority="high"
-          />
-          <span className="photo-caption">
-            {t.caption1}
-            <br />
-            {t.caption2}
-          </span>
-        </div>
-        <div className="hero-handwritten">{t.handwritten}</div>
+
         <PhoneFrame className="hero-phone">
           <MenuExperience preview />
         </PhoneFrame>
@@ -234,22 +221,45 @@ function Features() {
   return (
     <section id="features" className="features-section section-space container">
       <div className="feature-visual" data-reveal="image">
-        <img
-          className="feature-food"
-          src="/images/grill.webp"
-          alt={t.photoAlt}
-          width="650"
-          height="760"
-          loading="lazy"
-        />
-        <div className="feature-dish-label">
-          <span>{t.detail}</span>
-          <div>
-            <strong>{t.dish}</strong>
-            <bdi>{formatPrice(38, language)}</bdi>
-          </div>
-          <p>{t.dishNote}</p>
+        <div className="feature-preview-grid">
+          {t.previews.map((preview, index) => (
+            <div
+              className={`feature-preview feature-preview-${index + 1}`}
+              key={preview}
+              data-reveal="rise"
+              style={{ '--reveal-delay': index * 75 + 'ms' } as React.CSSProperties}
+            >
+              <div className="feature-preview-art" aria-hidden="true">
+                {index === 0 && (
+                  <>
+                    <Flower2 size={32} strokeWidth={1.25} />
+                    <span className="preview-palette"><i /><i /><i /></span>
+                  </>
+                )}
+                {index === 1 && (
+                  <>
+                    <Image size={34} strokeWidth={1.2} />
+                    <span className="preview-copy-lines"><i /><i /></span>
+                  </>
+                )}
+                {index === 2 && (
+                  <>
+                    <LayoutGrid size={27} strokeWidth={1.25} />
+                    <span className="preview-categories"><i /><i /><i /></span>
+                  </>
+                )}
+                {index === 3 && (
+                  <>
+                    <Globe2 size={30} strokeWidth={1.2} />
+                    <span className="preview-languages"><b lang="en">Aa</b><b lang="ar">أ ب</b></span>
+                  </>
+                )}
+              </div>
+              <span className="feature-preview-caption">{preview}</span>
+            </div>
+          ))}
         </div>
+
         <div className="feature-language-label">
           <Globe2 size={18} aria-hidden="true" />
           <span>{t.english}</span>
@@ -316,13 +326,7 @@ function ExperienceSection() {
           <span className="experience-footnote">{t.footnote}</span>
         </div>
         <div className="experience-table" data-reveal="tilt">
-          <img
-            src="/images/fattoush.webp"
-            alt={t.photoAlt}
-            width="500"
-            height="500"
-            loading="lazy"
-          />
+
           <div className="table-card">
             <Flower2 className="table-card-flower" size={28} strokeWidth={1.3} aria-hidden="true" />
             <span className="table-card-name">{t.restaurant}</span>
@@ -595,6 +599,7 @@ export default function App() {
             <HowItWorks />
             <Features />
             <ExperienceSection />
+            <TrialApplication />
             <Contact />
           </main>
           <Footer />

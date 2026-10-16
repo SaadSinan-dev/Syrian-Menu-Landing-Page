@@ -15,13 +15,13 @@ This configuration applies only to `SaadSinan-dev/Syrian-Menu-Landing-Page`, the
 | Install | `npm ci` |
 | Build | `npm run build` |
 | Output | `dist` |
-| Environment variables | None required |
+| Environment variables | `VITE_API_URL` for the trial application form; see trial-integration.md |
 | Preview branches and pull requests | Enabled |
 | Ignored Build Step | None |
 
 `vercel.json` pins the framework/build settings and enables Git deployments for all branches. The connected project determines which branch is Production; other eligible Git pushes produce Previews. No GitHub Actions publishing workflow or deploy hook is required.
 
-The interactive menu uses `#demo`, so no server rewrite is necessary. Images, fonts, translations, themes and demo data are local; the website has no API or database dependency.
+The interactive menu uses `#demo`, so it needs no server rewrite. Images, fonts, translations, themes and demo data are local. The new trial form requires the reviewed API Support extension, approved migration and an explicitly allowed marketing origin. Configure `VITE_API_URL` with the actual API base including `/api/v1`; a plain static host does not supply the development proxy. Do not release these refinements until those prerequisites have been approved and configured. No deployment is authorized by the refinement task.
 
 ## Verification record
 

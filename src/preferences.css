@@ -109,6 +109,7 @@
 .site-nav {
   background: var(--canvas);
 }
+
 .hero-scan-note,
 .feature-dish-label,
 .feature-language-label {
@@ -117,10 +118,6 @@
 .hero-photo {
   border-radius: 14px;
   border-start-start-radius: 160px;
-}
-.feature-food {
-  border-radius: 11px;
-  border-start-end-radius: 110px;
 }
 .phone-frame {
   background: var(--phone-shell);
@@ -191,12 +188,6 @@
 .feature-dish-label strong {
   font-family: inherit;
   font-size: 24px;
-}
-.brand-inverse .brand-symbol img {
-  filter: brightness(0) invert(1);
-}
-:root[data-theme='dark'] .brand:not(.brand-inverse) .brand-symbol img {
-  filter: brightness(1.9) saturate(0.5);
 }
 :root[dir='rtl'] {
   font-family: Cairo, 'IBM Plex Sans Arabic', sans-serif;
@@ -333,6 +324,7 @@
 .spotlight-controls {
   direction: inherit;
 }
+
 .preferences-changing
   :where(
     .site-header,
@@ -347,13 +339,21 @@
     .menu-masthead,
     .menu-categories,
     .dish-card,
-    .whatsapp-contact
+    .contact-section,
+    .contact-heading,
+    .contact-row,
+    .contact-icon,
+    .whatsapp-contact,
+    .contact-status,
+    .temporary-number,
+    .whatsapp-coming-soon
   ) {
   transition:
     background-color 240ms ease,
     color 200ms ease,
     border-color 200ms ease;
 }
+
 html.preferences-changing {
   transition:
     background-color 240ms ease,
@@ -501,10 +501,6 @@ html.preferences-changing {
     width: 34px;
     height: 44px;
   }
-  .site-header .brand-symbol img {
-    width: 49px;
-    height: 49px;
-  }
   .header-inner {
     justify-content: space-between;
   }
@@ -536,5 +532,293 @@ html.preferences-changing {
   }
   [dir='rtl'] .cloud-label {
     font-size: 13px;
+  }
+}
+/* =========================================
+   CONTACT SECTION — THEME COLORS
+   ========================================= */
+
+/* LIGHT MODE (DEFAULT) */
+.contact-section {
+  --contact-bg: #faf9f5;
+  --contact-surface: #fffefa;
+  --contact-text: #1c3026;
+  --contact-muted: #68756c;
+  --contact-accent: #345b48;
+  --contact-border: #dce2d8;
+  --contact-hover: #edf1e9;
+  --contact-focus: #3a7056;
+
+  background: var(--contact-bg);
+  color: var(--contact-text);
+}
+
+/* DARK MODE */
+:root[data-theme='dark'] .contact-section {
+  --contact-bg: #101c17;
+  --contact-surface: #1a2b22;
+  --contact-text: #f1f2e9;
+  --contact-muted: #b1bfb3;
+  --contact-accent: #a8c9aa;
+  --contact-border: #35483c;
+  --contact-hover: #283d30;
+  --contact-focus: #a5d6b1;
+}
+
+/* HEADING */
+.contact-section .contact-heading h2 {
+  color: var(--contact-text);
+}
+
+.contact-section .contact-heading p {
+  color: var(--contact-muted);
+}
+
+/* CONTACT ROWS */
+.contact-section .contact-row {
+  color: var(--contact-text);
+  border-bottom-color: var(--contact-border);
+  background: transparent;
+}
+
+.contact-section .contact-row:hover,
+.contact-section .contact-row:focus-visible {
+  background: var(--contact-hover);
+  border-bottom-color: var(--contact-accent);
+}
+
+.contact-section .contact-row strong {
+  color: var(--contact-text);
+}
+
+.contact-section .contact-row small {
+  color: var(--contact-muted);
+}
+
+/* ICONS */
+.contact-section .contact-icon {
+  background: var(--contact-surface);
+  color: var(--contact-accent);
+  border-color: var(--contact-border);
+}
+
+.contact-section .contact-row:hover .contact-icon {
+  background: var(--contact-hover);
+  border-color: var(--contact-accent);
+}
+
+.contact-section .contact-row > svg {
+  color: var(--contact-accent);
+}
+
+/* WHATSAPP CARD */
+.contact-section .whatsapp-contact {
+  background: var(--contact-surface);
+  color: var(--contact-text);
+  border-color: var(--contact-border);
+}
+
+.contact-section .whatsapp-title {
+  color: var(--contact-text);
+}
+
+.contact-section .whatsapp-title > svg {
+  color: var(--contact-accent);
+}
+
+.contact-section .whatsapp-contact p {
+  color: var(--contact-muted);
+}
+
+/* STATUS */
+.contact-section .contact-status {
+  background: var(--contact-hover);
+  color: var(--contact-text);
+}
+
+/* PHONE NUMBER */
+.contact-section .temporary-number {
+  color: var(--contact-text);
+}
+
+.contact-section .temporary-number small {
+  color: var(--contact-muted);
+}
+
+/* COMING SOON */
+.contact-section .whatsapp-coming-soon {
+  color: var(--contact-accent);
+  border-top-color: var(--contact-border);
+}
+
+/* KEYBOARD FOCUS */
+.contact-section .contact-row:focus-visible,
+.contact-section .whatsapp-button:focus-visible {
+  outline: 2px solid var(--contact-focus);
+  outline-offset: 3px;
+}
+
+/* SMOOTH THEME TRANSITION */
+.contact-section,
+.contact-section .contact-row,
+.contact-section .contact-icon,
+.contact-section .whatsapp-contact,
+.contact-section .contact-status {
+  transition:
+    background-color 240ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+/* =========================================
+   EXPERIENCE SECTION — LIGHT MODE
+   ========================================= */
+
+.experience-section {
+  --experience-bg: #f7f5ed;
+  --experience-text: #193c2d;
+  --experience-muted: #637769;
+  --experience-accent: #8d7748;
+  --experience-card: #fffefa;
+  --experience-card-text: #193c2d;
+  --experience-button-bg: #193c2d;
+  --experience-button-text: #ffffff;
+
+  background: var(--experience-bg);
+  color: var(--experience-text);
+}
+
+/* =========================================
+   EXPERIENCE SECTION — DARK MODE
+   ========================================= */
+
+html[data-theme='dark'] .experience-section {
+  --experience-bg: #10251b;
+  --experience-text: #f4f1e7;
+  --experience-muted: #b9c9b9;
+  --experience-accent: #d5c394;
+  --experience-card: #fffefa;
+  --experience-card-text: #193c2d;
+  --experience-button-bg: #f4f1e7;
+  --experience-button-text: #193c2d;
+}
+
+/* HEADING */
+.experience-section .experience-copy h2 {
+  color: var(--experience-text);
+}
+
+.experience-section .experience-copy h2 em {
+  color: var(--experience-accent);
+}
+
+/* EYEBROW AND DESCRIPTION */
+.experience-section .experience-copy .eyebrow,
+.experience-section .experience-copy p,
+.experience-section .experience-footnote {
+  color: var(--experience-muted);
+}
+
+/* BUTTON */
+.experience-section .button-cream {
+  background: var(--experience-button-bg);
+  color: var(--experience-button-text);
+  border-color: var(--experience-button-bg);
+}
+
+.experience-section .button-cream:hover {
+  opacity: 0.88;
+}
+
+/* RESTAURANT CARD */
+.experience-section .table-card {
+  background: var(--experience-card);
+  color: var(--experience-card-text);
+}
+
+.experience-section .table-card-flower {
+  color: #7a8454;
+}
+
+/* THEME TRANSITION */
+.experience-section,
+.experience-section .experience-copy h2,
+.experience-section .experience-copy p,
+.experience-section .button-cream,
+.experience-section .table-card {
+  transition:
+    background-color 240ms ease,
+    color 240ms ease,
+    border-color 240ms ease;
+}
+/* =========================================
+   LIGHT GREY GLASS NAVBAR
+   ========================================= */
+
+/* LIGHT MODE */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background: rgba(190, 191, 190, 0.796);
+
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+
+  color: #24362c;
+}
+
+/* DARK MODE */
+html[data-theme='dark'] .site-header {
+  background: rgba(55, 60, 57, 0.65);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f4f4ef;
+}
+
+/* NAVIGATION LINKS */
+.site-header .site-nav {
+  background: transparent;
+}
+
+.site-header .site-nav > a:not(.button) {
+  color: inherit;
+}
+
+.site-header .site-nav > a:not(.button):hover {
+  color: var(--text-soft);
+}
+
+/* LOGO */
+.site-header .brand {
+  color: inherit;
+}
+
+/* THEME AND LANGUAGE BUTTONS */
+.site-header .preference-button {
+  color: inherit;
+  border-color: rgba(120, 130, 120, 0.3);
+}
+
+.site-header .preference-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* MOBILE NAVIGATION */
+@media (max-width: 1000px) {
+  .site-header .site-nav.is-open {
+    background: rgba(230, 232, 230, 0.94);
+    color: #24362c;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  html[data-theme='dark'] .site-header .site-nav.is-open {
+    background: rgba(55, 60, 57, 0.94);
+    color: #f4f4ef;
   }
 }

@@ -21,14 +21,14 @@
 .brand-symbol {
   width: 38px;
   height: 47px;
-  overflow: hidden;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
 }
 .brand-symbol img {
-  width: 55px;
-  max-width: none;
-  height: 55px;
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 .brand-wordmark {
@@ -125,12 +125,6 @@
   border-radius: 160px 14px 14px 14px;
   overflow: hidden;
   background: var(--surface-accent);
-}
-.hero-photo > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 48% 50%;
 }
 .hero-photo::after {
   content: '';
@@ -376,21 +370,103 @@
 .feature-visual {
   position: relative;
   min-width: 0;
-  align-self: stretch;
-  min-height: 555px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  padding-block: 64px 10px;
 }
-.feature-food {
-  width: 100%;
-  height: 100%;
-  min-height: 555px;
-  object-fit: cover;
-  border-radius: 11px 110px 11px 11px;
+.feature-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.feature-preview {
+  min-width: 0;
+  padding: 25px 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.feature-preview-2,
+.feature-preview-3 {
+  background: var(--surface-soft);
+}
+.feature-preview-art {
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  color: var(--text-soft);
+}
+.feature-preview-caption {
+  display: block;
+  margin-top: 18px;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.6;
+}
+.preview-palette,
+.preview-categories,
+.preview-languages {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.preview-palette i {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #245244;
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line);
+}
+.preview-palette i:nth-child(2) {
+  background: #c96445;
+}
+.preview-palette i:nth-child(3) {
+  background: #d5a45e;
+}
+.preview-copy-lines {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+.preview-copy-lines i {
+  display: block;
+  width: 64px;
+  height: 3px;
+  background: var(--line-strong);
+  border-radius: 3px;
+}
+.preview-copy-lines i:last-child {
+  width: 42px;
+}
+.preview-categories i {
+  width: 23px;
+  height: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+}
+.preview-categories i:first-child {
+  background: var(--text-soft);
+  border-color: transparent;
+}
+.preview-languages b {
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 500;
+}
+.preview-languages b + b {
+  border-inline-start: 1px solid var(--line-strong);
+  padding-inline-start: 8px;
 }
 .feature-dish-label {
-  position: absolute;
-  bottom: -24px;
-  inset-inline-start: 25px;
-  width: calc(100% - 50px);
+  position: relative;
+  align-self: center;
+  width: calc(100% - 32px);
   padding: 24px 28px;
   background: var(--white);
   border-radius: 6px;
@@ -421,8 +497,8 @@
 }
 .feature-language-label {
   position: absolute;
-  top: 30px;
-  inset-inline-start: -23px;
+  top: 0;
+  inset-inline-start: 0;
   display: flex;
   align-items: center;
   gap: 13px;
@@ -574,39 +650,81 @@
   line-height: 1.9;
   margin-top: 13px;
 }
+
+/* =========================================
+   CONTACT SECTION — LIGHT & DARK MODE
+   ========================================= */
+
 .contact-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 100px;
   align-items: start;
+  color: var(--text);
 }
+
 .contact-heading h2 {
   margin-block: 23px;
+  color: var(--text);
 }
+
 .contact-heading p {
   font-size: 13px;
   color: var(--muted);
 }
+
+/* Contact rows */
 .contact-row {
   display: flex;
   align-items: center;
   gap: 17px;
   padding-block: 20px;
   border-bottom: 1px solid var(--line);
+  color: var(--text);
+  background: transparent;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
 }
+
+.contact-row:hover,
+.contact-row:focus-visible {
+  background: var(--surface-hover);
+  border-color: var(--line-strong);
+}
+
 .contact-row > span:nth-child(2) {
   flex: 1;
   min-width: 0;
 }
+
+/* Contact icons */
 .contact-icon {
   width: 45px;
   height: 45px;
-  background: var(--surface-accent);
+  background: var(--surface);
+  color: var(--text-soft);
+  border: 1px solid var(--line);
   border-radius: 50%;
   display: grid;
   place-items: center;
   flex-shrink: 0;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease;
 }
+
+.contact-row:hover .contact-icon,
+.contact-row:focus-visible .contact-icon {
+  background: var(--surface-hover);
+  border-color: var(--line-strong);
+}
+
+.contact-row > svg {
+  color: var(--text-soft);
+}
+
 .contact-row small {
   display: block;
   font-size: 7px;
@@ -614,19 +732,25 @@
   margin-bottom: 7px;
   color: var(--muted);
 }
+
 .contact-row strong {
   font-weight: 500;
   font-size: 15px;
   overflow-wrap: anywhere;
+  color: var(--text);
 }
+
 .contact-row:hover strong {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+
+/* WhatsApp card */
 .whatsapp-contact {
   margin-top: 25px;
   border: 1px solid var(--line);
-  background: var(--surface-contact);
+  background: var(--surface);
+  color: var(--text);
   border-radius: 7px;
   padding: 23px;
 }
@@ -637,32 +761,45 @@
   font-size: 13px;
   font-weight: 500;
   flex-wrap: wrap;
+  color: var(--text);
 }
+
+.whatsapp-title > svg {
+  color: var(--text-soft);
+}
+
+/* WhatsApp status */
 .contact-status {
   margin-inline-start: auto;
-  background: var(--badge-bg);
+  background: var(--surface-hover);
+  color: var(--text);
   border-radius: 3px;
   font-size: 6px;
   letter-spacing: 0.6px;
   padding: 6px 7px;
   white-space: nowrap;
 }
+
 .whatsapp-contact p {
   font-size: 11px;
   color: var(--muted);
   margin-block: 13px;
 }
+
 .temporary-number {
   display: flex;
   align-items: center;
   gap: 14px;
   font-size: 13px;
   flex-wrap: wrap;
+  color: var(--text);
 }
+
 .temporary-number small {
   font-size: 8px;
   color: var(--muted);
 }
+
 .whatsapp-coming-soon {
   display: flex;
   gap: 8px;
@@ -673,9 +810,18 @@
   border-top: 1px solid var(--line);
   padding-top: 15px;
 }
+
 .whatsapp-button {
   margin-top: 18px;
 }
+
+/* Keyboard accessibility */
+.contact-row:focus-visible,
+.whatsapp-button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
 .site-footer {
   background: var(--surface-soft);
   border-top: 1px solid var(--line);
@@ -745,9 +891,6 @@
 }
 .brand-inverse {
   color: var(--ivory);
-}
-.brand-inverse .brand-symbol img {
-  filter: brightness(0) invert(1);
 }
 .demo-back {
   display: flex;
@@ -1019,17 +1162,10 @@
     gap: 40px;
     padding-block: 90px 110px;
   }
-  .feature-visual {
-    min-height: 570px;
-  }
-  .feature-food {
-    min-height: 570px;
-  }
   .features-copy h2 {
     font-size: 35px;
   }
   .feature-dish-label {
-    inset-inline-start: 15px;
     width: calc(100% - 30px);
     padding: 20px;
   }
@@ -1037,7 +1173,6 @@
     font-size: 6px;
   }
   .feature-language-label {
-    inset-inline-start: -15px;
     padding: 10px 12px;
     gap: 9px;
   }
@@ -1111,10 +1246,6 @@
   .brand-symbol {
     width: 30px;
     height: 39px;
-  }
-  .brand-symbol img {
-    width: 45px;
-    height: 45px;
   }
   .brand-wordmark {
     font-size: 16px;
@@ -1289,28 +1420,16 @@
     padding-block: 75px;
   }
   .feature-visual {
-    min-height: 410px;
-    height: 410px;
     max-width: 440px;
     width: 100%;
     margin-inline: auto;
   }
-  .feature-food {
-    min-height: 0;
-    height: 100%;
-    border-start-end-radius: 100px;
-  }
   .feature-dish-label {
-    bottom: -20px;
-    inset-inline-start: 20px;
     width: calc(100% - 40px);
     padding: 20px 23px;
   }
   .feature-dish-label > span {
     font-size: 7px;
-  }
-  .feature-language-label {
-    inset-inline-start: -7px;
   }
   .features-copy h2 {
     font-size: 37px;
