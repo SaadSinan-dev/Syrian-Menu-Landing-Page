@@ -670,11 +670,11 @@ html.preferences-changing {
     border-color 200ms ease;
 }
 /* =========================================
-   EXPERIENCE SECTION — LIGHT MODE
+   EXPERIENCE SECTION سسسسسسسسسسس— LIGHT MODE
    ========================================= */
 
 .experience-section {
-  --experience-bg: #f7f5ed;
+  --experience-bg: #d7e8d94b;
   --experience-text: #193c2d;
   --experience-muted: #637769;
   --experience-accent: #8d7748;
@@ -760,7 +760,7 @@ html[data-theme='dark'] .experience-section {
   top: 0;
   z-index: 100;
 
-  background: rgba(190, 191, 190, 0.796);
+  background: rgba(214, 214, 214, 0.796);
 
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);

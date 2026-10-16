@@ -111,10 +111,11 @@ function Hero() {
           {t.eyebrow}
         </div>
         <h1 id="hero-title">
-          <span className="hero-line">{t.line1}</span>
-          <span className="hero-line">{t.line2}</span>
-          <em className="hero-line">{t.emphasis}</em>
-        </h1>
+  <span className="hero-line">
+    {t.line1} {t.line2}
+  </span>
+  <em className="hero-line">{t.emphasis}</em>
+</h1>
         <p className="hero-description">{t.description}</p>
         <div className="hero-actions">
           <a className="button" href="#demo">
