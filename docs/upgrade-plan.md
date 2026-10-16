@@ -6,4 +6,8 @@ Preserve the existing React application, section layouts, public assets, local d
 2. **Integrate controls and semantic styles** — Localize existing components without duplicated pages. Keep the animated SVG cloud CTA outside the collapsed mobile links. Share theme/language controls with the demo header. Apply semantic light/dark tokens to the complete site and menu, logical positioning for RTL and responsive Arabic typography. Animate only the cloud artwork inside a stable link, pause on focus/hover, disable with reduced motion.
 3. **Verify and deliver** — Preserve current functional tests, add all four language/theme combinations, preference reload/navigation, system theme, unavailable storage, keyboard, mobile CTA and no-overflow checks. Inspect desktop/mobile images in both themes and languages. Build, lint, review and refresh the production preview.
 
+## Additional motion scope
+
+The user's follow-up adds premium motion while preserving the design: coordinated hero text/photo/phone entrances, five distinct once-only reveal variants, interactive hover/press feedback, natural bounded cloud drift, refined menu category/card/detail/photo entrances, and subtle preference-change feedback. Use CSS and one IntersectionObserver; add no animation dependencies. Keep every target usable during animation and show all content under reduced motion.
+
 Acceptance: every marketing and menu label localized (proper names/contact handles preserved), no unintended mixed content, correct document and menu directions, preferences consistent across navigation and reload, no theme flash from late initialization, cloud link stable and visible at 320px+, and no new browser errors.

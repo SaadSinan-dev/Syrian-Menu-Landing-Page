@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   ArrowDown,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
   Check,
   CheckCheck,
   Flower2,
@@ -25,22 +22,29 @@ import { Brand } from './components/Brand'
 import { MenuExperience } from './components/MenuExperience'
 import { PhoneFrame } from './components/PhoneFrame'
 import { QR } from './components/QR'
+import { CloudCTA } from './components/CloudCTA'
+import { PreferenceControls } from './components/PreferenceControls'
+import { FlowArrow } from './components/FlowArrow'
 import { contact, resolveWhatsApp } from './config/contact'
+import { useCopy } from './i18n/useCopy'
+import { formatMessage } from './i18n/messages'
+import { usePreferences } from './preferences/context'
+import { useReveals } from './motion/useReveals'
+import { formatPrice } from './data/menu'
 import './App.css'
+import './preferences.css'
+import './motion.css'
 
-const navigation = [
-  { href: '#how-it-works', label: 'How it works' },
-  { href: '#features', label: 'Made for your restaurant' },
-  { href: '#contact', label: 'Contact' },
-]
 const copyrightYear = new Date().getFullYear()
 
 function Header() {
+  const t = useCopy()
   const [open, setOpen] = useState(false)
   const toggle = useRef<HTMLButtonElement>(null)
   const nav = useRef<HTMLElement>(null)
   useEffect(() => {
     if (!open) return
+    nav.current?.querySelector<HTMLAnchorElement>('a')?.focus({ preventScroll: true })
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false)
@@ -65,72 +69,70 @@ function Header() {
     <header className="site-header">
       <div className="container header-inner">
         <Brand />
-        <button
-          ref={toggle}
-          data-testid="navigation-toggle"
-          className="navigation-toggle"
-          aria-controls="main-navigation"
-          aria-expanded={open}
-          aria-label={open ? 'Close navigation' : 'Open navigation'}
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-        </button>
         <nav
           id="main-navigation"
           ref={nav}
           className={open ? 'site-nav is-open' : 'site-nav'}
-          aria-label="Main navigation"
+          aria-label={t.common.mainNav}
           onClick={() => setOpen(false)}
         >
-          {navigation.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-          <a className="button button-small" href="#demo">
-            Try the Experience <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
+          <a href="#how-it-works">{t.nav.how}</a>
+          <a href="#features">{t.nav.features}</a>
+          <a href="#contact">{t.nav.contact}</a>
         </nav>
+        <div className="header-actions">
+          <PreferenceControls />
+          <CloudCTA />
+          <button
+            ref={toggle}
+            data-testid="navigation-toggle"
+            className="navigation-toggle"
+            aria-controls="main-navigation"
+            aria-expanded={open}
+            aria-label={open ? t.common.closeNav : t.common.openNav}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
+        </div>
       </div>
     </header>
   )
 }
 
 function Hero() {
+  const { hero: t, common } = useCopy()
   return (
     <section className="hero container" aria-labelledby="hero-title">
       <div className="hero-copy">
         <div className="eyebrow">
-          <span /> DIGITAL MENUS. REAL HOSPITALITY.
+          <span />
+          {t.eyebrow}
         </div>
         <h1 id="hero-title">
-          A fresh way to
-          <br />
-          share your
-          <br />
-          <em>good taste.</em>
+          <span className="hero-line">{t.line1}</span>
+          <span className="hero-line">{t.line2}</span>
+          <em className="hero-line">{t.emphasis}</em>
         </h1>
-        <p className="hero-description">
-          Your food tells a story. Give it a menu that does, too. A beautiful digital experience,
-          from the first scan to the last bite.
-        </p>
+        <p className="hero-description">{t.description}</p>
         <div className="hero-actions">
           <a className="button" href="#demo">
-            Try the Experience <ArrowUpRight size={19} aria-hidden="true" />
+            {common.try}
+            <FlowArrow diagonal size={19} />
           </a>
           <a className="text-link" href="#how-it-works">
-            See how it works <ArrowRight size={17} aria-hidden="true" />
+            {t.how}
+            <FlowArrow size={17} />
           </a>
         </div>
         <div className="hero-assurance">
           <span>
             <Check size={15} aria-hidden="true" />
-            No app to download
+            {t.noApp}
           </span>
           <span>
             <Check size={15} aria-hidden="true" />
-            Made for every table
+            {t.table}
           </span>
         </div>
       </div>
@@ -138,34 +140,33 @@ function Hero() {
         <div className="hero-photo">
           <img
             src="/images/syrian-table.webp"
-            alt="A Syrian table filled with charcoal grills, fresh fattoush, hummus and warm flatbread"
+            alt={t.photoAlt}
             width="768"
             height="900"
             fetchPriority="high"
           />
           <span className="photo-caption">
-            ROOTED IN HOSPITALITY.
+            {t.caption1}
             <br />
-            DESIGNED FOR TODAY.
+            {t.caption2}
           </span>
         </div>
-        <div className="hero-handwritten" lang="ar" dir="rtl">
-          صحتين وهنا
-        </div>
+        <div className="hero-handwritten">{t.handwritten}</div>
         <PhoneFrame className="hero-phone">
           <MenuExperience preview />
         </PhoneFrame>
         <div className="hero-scan-note">
           <QR size={65} />
           <span>
-            A little scan.
+            {t.scan}
             <br />
-            <strong>A delicious discovery.</strong>
+            <strong>{t.discover}</strong>
           </span>
-          <ArrowUpRight size={19} aria-hidden="true" />
+          <FlowArrow diagonal size={19} />
         </div>
         <span className="hero-interactive-note">
-          <MousePointer2 size={14} aria-hidden="true" /> A real menu. Go on, explore.
+          <MousePointer2 size={14} aria-hidden="true" />
+          {t.interactive}
         </span>
       </div>
     </section>
@@ -173,61 +174,53 @@ function Hero() {
 }
 
 function HowItWorks() {
-  const steps = [
-    {
-      icon: ScanLine,
-      title: 'Scan. You’re at the table.',
-      description:
-        'Guests scan your QR code with their phone camera. Your menu opens right in their browser.',
-      detail: 'NO DOWNLOADS. NO DETOURS.',
-    },
-    {
-      icon: LayoutGrid,
-      title: 'Explore every craving.',
-      description:
-        'Browse your categories, discover beautiful dishes, and find something that feels just right.',
-      detail: 'A LITTLE LESS SCROLL. MORE DISCOVERY.',
-    },
-    {
-      icon: Sparkles,
-      title: 'Let good food do the talking.',
-      description:
-        'Clear descriptions, appetizing photos, and easy-to-find prices make choosing a pleasure.',
-      detail: 'YOUR HOSPITALITY, ON SCREEN.',
-    },
-  ]
+  const { how: t } = useCopy()
+  const icons = [ScanLine, LayoutGrid, Sparkles]
+  const { language } = usePreferences()
   return (
     <section id="how-it-works" className="how-section section-space">
       <div className="container">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal="rise">
           <div>
-            <span className="eyebrow">01 / THE SIMPLE PLEASURE</span>
+            <span className="eyebrow">{t.eyebrow}</span>
             <h2>
-              A little scan.
+              {t.title}
               <br />
-              <em>A warm welcome.</em>
+              <em>{t.emphasis}</em>
             </h2>
           </div>
           <p>
-            Good hospitality should feel effortless.
+            {t.intro1}
             <br />
-            Your menu is a lovely place to start.
+            {t.intro2}
           </p>
         </div>
         <div className="steps">
-          {steps.map((step, index) => (
-            <article className="step" key={step.title}>
-              <div className="step-top">
-                <span className="step-icon">
-                  <step.icon size={26} strokeWidth={1.5} aria-hidden="true" />
-                </span>
-                <span className="step-number">0{index + 1}</span>
-              </div>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-              <span className="step-detail">{step.detail}</span>
-            </article>
-          ))}
+          {t.steps.map((step, index) => {
+            const Icon = icons[index]
+            return (
+              <article
+                className="step"
+                key={index}
+                data-reveal="rise"
+                style={{ '--reveal-delay': index * 80 + 'ms' } as React.CSSProperties}
+              >
+                <div className="step-top">
+                  <span className="step-icon">
+                    <Icon size={26} strokeWidth={1.5} aria-hidden="true" />
+                  </span>
+                  <span className="step-number">
+                    {new Intl.NumberFormat(language === 'ar' ? 'ar-u-nu-arab' : 'en', {
+                      minimumIntegerDigits: 2,
+                    }).format(index + 1)}
+                  </span>
+                </div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+                <span className="step-detail">{step.detail}</span>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -235,79 +228,64 @@ function HowItWorks() {
 }
 
 function Features() {
-  const features = [
-    {
-      icon: Palette,
-      title: 'Your restaurant. Your character.',
-      description:
-        'Bring your logo, colors, and personality to the table. A menu that feels like you.',
-    },
-    {
-      icon: Image,
-      title: 'Every dish, beautifully presented.',
-      description:
-        'Let guests see what makes your food special, with rich photography and thoughtful descriptions.',
-    },
-    {
-      icon: LayoutGrid,
-      title: 'A place for every craving.',
-      description:
-        'Clear categories and visible prices help guests explore your menu at their own pace.',
-    },
-    {
-      icon: Globe2,
-      title: 'A warm welcome, in either language.',
-      description:
-        'Let guests browse naturally in Arabic or English, on a menu made for their phone.',
-    },
-  ]
+  const { features: t } = useCopy()
+  const { language } = usePreferences()
+  const icons = [Palette, Image, LayoutGrid, Globe2]
   return (
     <section id="features" className="features-section section-space container">
-      <div className="feature-visual">
+      <div className="feature-visual" data-reveal="image">
         <img
           className="feature-food"
           src="/images/grill.webp"
-          alt="Charcoal-grilled kebab with roasted tomatoes and fresh parsley"
+          alt={t.photoAlt}
           width="650"
           height="760"
           loading="lazy"
         />
         <div className="feature-dish-label">
-          <span>THE DETAILS MAKE THE DIFFERENCE</span>
+          <span>{t.detail}</span>
           <div>
-            <strong lang="ar">كباب حلبي</strong>
-            <bdi>$38</bdi>
+            <strong>{t.dish}</strong>
+            <bdi>{formatPrice(38, language)}</bdi>
           </div>
-          <p>A little tradition. A lot of flavor.</p>
+          <p>{t.dishNote}</p>
         </div>
         <div className="feature-language-label">
           <Globe2 size={18} aria-hidden="true" />
-          <span>English</span>
+          <span>{t.english}</span>
           <span className="language-divider" />
-          <span lang="ar">العربية</span>
+          <span>{t.arabic}</span>
           <CheckCheck size={17} aria-hidden="true" />
         </div>
       </div>
       <div className="features-copy">
-        <span className="eyebrow">02 / THOUGHTFULLY MADE</span>
-        <h2>
-          More than a menu.
-          <br />
-          <em>A taste of you.</em>
-        </h2>
-        <p className="section-intro">
-          The care you put into your restaurant belongs in every detail of your menu.
-        </p>
+        <div data-reveal="fade">
+          <span className="eyebrow">{t.eyebrow}</span>
+          <h2>
+            {t.title}
+            <br />
+            <em>{t.emphasis}</em>
+          </h2>
+          <p className="section-intro">{t.intro}</p>
+        </div>
         <div className="feature-list">
-          {features.map((feature) => (
-            <article className="feature" key={feature.title}>
-              <feature.icon size={23} strokeWidth={1.5} aria-hidden="true" />
-              <div>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-              </div>
-            </article>
-          ))}
+          {t.items.map((feature, index) => {
+            const Icon = icons[index]
+            return (
+              <article
+                className="feature"
+                key={index}
+                data-reveal="slide"
+                style={{ '--reveal-delay': index * 55 + 'ms' } as React.CSSProperties}
+              >
+                <Icon size={23} strokeWidth={1.5} aria-hidden="true" />
+                <div>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.description}</p>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -315,45 +293,45 @@ function Features() {
 }
 
 function ExperienceSection() {
+  const { experience: t, common } = useCopy()
   return (
     <section id="experience" className="experience-section">
       <div className="container experience-inner">
-        <div className="experience-copy">
-          <span className="eyebrow">03 / PULL UP A CHAIR</span>
+        <div className="experience-copy" data-reveal="rise">
+          <span className="eyebrow">{t.eyebrow}</span>
           <h2>
-            Some things are better
+            {t.title}
             <br />
-            <em>experienced.</em>
+            <em>{t.emphasis}</em>
           </h2>
           <p>
-            Step inside Dar Al Yasmin, our little demo restaurant.
+            {t.intro1}
             <br />
-            Browse the dishes. Find a favorite. Make yourself at home.
+            {t.intro2}
           </p>
           <a className="button button-cream" href="#demo">
-            Try the Experience <ArrowUpRight size={19} aria-hidden="true" />
+            {common.try}
+            <FlowArrow diagonal size={19} />
           </a>
-          <span className="experience-footnote">Interactive demo · No sign-up needed</span>
+          <span className="experience-footnote">{t.footnote}</span>
         </div>
-        <div className="experience-table">
+        <div className="experience-table" data-reveal="tilt">
           <img
             src="/images/fattoush.webp"
-            alt="A bowl of fresh fattoush with crisp vegetables and toasted flatbread"
+            alt={t.photoAlt}
             width="500"
             height="500"
             loading="lazy"
           />
           <div className="table-card">
             <Flower2 className="table-card-flower" size={28} strokeWidth={1.3} aria-hidden="true" />
-            <span className="table-card-name" lang="ar">
-              دار الياسمين
-            </span>
-            <span className="table-card-subtitle">A TASTE OF DAMASCUS</span>
+            <span className="table-card-name">{t.restaurant}</span>
+            <span className="table-card-subtitle">{t.subtitle}</span>
             <QR size={98} />
             <span className="table-card-bottom">
-              YOUR NEXT FAVORITE DISH
+              {t.card1}
               <br />
-              IS A SCAN AWAY.
+              {t.card2}
             </span>
           </div>
         </div>
@@ -363,32 +341,37 @@ function ExperienceSection() {
 }
 
 function Contact() {
-  const whatsapp = resolveWhatsApp(contact.whatsapp)
+  const { contact: t } = useCopy()
+  const { language } = usePreferences()
+  const whatsapp = resolveWhatsApp({
+    ...contact.whatsapp,
+    message: language === 'ar' ? t.message : contact.whatsapp.message,
+  })
   return (
     <section id="contact" className="contact-section section-space container">
-      <div className="contact-heading">
-        <span className="eyebrow">04 / LET’S TALK</span>
+      <div className="contact-heading" data-reveal="rise">
+        <span className="eyebrow">{t.eyebrow}</span>
         <h2>
-          Your next chapter
+          {t.title}
           <br />
-          <em>starts at the table.</em>
+          <em>{t.emphasis}</em>
         </h2>
         <p>
-          Have a restaurant, a question, or a lovely idea?
+          {t.intro1}
           <br />
-          We’d love to hear from you.
+          {t.intro2}
         </p>
       </div>
-      <div className="contact-options">
-        <a className="contact-row" href={`mailto:${contact.email}`}>
+      <div className="contact-options" data-reveal="fade">
+        <a className="contact-row" href={'mailto:' + contact.email}>
           <span className="contact-icon">
             <Mail size={23} strokeWidth={1.5} aria-hidden="true" />
           </span>
           <span>
-            <small>DROP US A LINE</small>
-            <strong>{contact.email}</strong>
+            <small>{t.email}</small>
+            <strong dir="ltr">{contact.email}</strong>
           </span>
-          <ArrowUpRight size={21} aria-hidden="true" />
+          <FlowArrow diagonal size={21} />
         </a>
         <a
           className="contact-row"
@@ -400,17 +383,17 @@ function Contact() {
             <Instagram size={23} strokeWidth={1.5} aria-hidden="true" />
           </span>
           <span>
-            <small>A LITTLE INSPIRATION</small>
-            <strong>@syrian_menu</strong>
+            <small>{t.instagram}</small>
+            <strong dir="ltr">@syrian_menu</strong>
           </span>
-          <ArrowUpRight size={21} aria-hidden="true" />
+          <FlowArrow diagonal size={21} />
         </a>
         {whatsapp && (
           <div className="whatsapp-contact">
             <div className="whatsapp-title">
               <MessageCircle size={23} strokeWidth={1.5} aria-hidden="true" />
-              <span>Let’s keep in touch.</span>
-              <span className="contact-status">{whatsapp.href ? 'SAY HELLO' : 'COMING SOON'}</span>
+              <span>{t.keep}</span>
+              <span className="contact-status">{whatsapp.href ? t.hello : t.soon}</span>
             </div>
             {whatsapp.href ? (
               <a
@@ -419,25 +402,25 @@ function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {whatsapp.label}
-                <ArrowUpRight size={18} aria-hidden="true" />
+                {t.chat}
+                <FlowArrow diagonal size={18} />
               </a>
             ) : (
               <>
                 <p>
-                  Our official WhatsApp number is on its way.
+                  {t.whatsapp1}
                   <br />
-                  For now, say hello by email or Instagram.
+                  {t.whatsapp2}
                 </p>
                 {whatsapp.number && (
                   <span className="temporary-number">
-                    <bdi>{whatsapp.number}</bdi>
-                    <small>Temporary placeholder</small>
+                    <bdi dir="ltr">{whatsapp.number}</bdi>
+                    <small>{t.placeholder}</small>
                   </span>
                 )}
                 <span className="whatsapp-coming-soon">
                   <MessageCircle size={16} aria-hidden="true" />
-                  {whatsapp.label}
+                  {t.comingSoon}
                 </span>
               </>
             )}
@@ -449,39 +432,41 @@ function Contact() {
 }
 
 function Footer() {
+  const { footer: t, nav, common } = useCopy()
   return (
     <footer className="site-footer">
       <div className="container">
         <div className="footer-top">
           <div>
             <Brand />
-            <p>Rooted in hospitality. Made for your table.</p>
+            <p>{t.tagline}</p>
           </div>
-          <nav aria-label="Footer navigation">
-            <a href="#how-it-works">How it works</a>
-            <a href="#features">Features</a>
-            <a href="#demo">The experience</a>
-            <a href="#contact">Get in touch</a>
+          <nav aria-label={common.footerNav}>
+            <a href="#how-it-works">{nav.how}</a>
+            <a href="#features">{nav.featuresShort}</a>
+            <a href="#demo">{nav.experience}</a>
+            <a href="#contact">{nav.getInTouch}</a>
           </nav>
           <div className="footer-socials">
             <a
               href={contact.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="SYRIAN MENU on Instagram"
+              aria-label={t.instagram}
             >
               <Instagram size={20} aria-hidden="true" />
             </a>
-            <a href={`mailto:${contact.email}`} aria-label="Email SYRIAN MENU">
+            <a href={'mailto:' + contact.email} aria-label={t.email}>
               <Mail size={20} aria-hidden="true" />
             </a>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {copyrightYear} SYRIAN MENU. All rights reserved.</span>
-          <span>Made with care. Served with soul.</span>
+          <span>{formatMessage(t.rights, { year: copyrightYear })}</span>
+          <span>{t.made}</span>
           <a href="#home">
-            Back to top <ArrowUpRight size={14} aria-hidden="true" />
+            {t.top}
+            <FlowArrow diagonal size={14} />
           </a>
         </div>
       </div>
@@ -490,66 +475,68 @@ function Footer() {
 }
 
 function DemoPage() {
+  const { demo: t, common } = useCopy()
+  const icons = [LayoutGrid, MousePointer2, Globe2]
   return (
     <div className="demo-page">
       <header className="demo-header container">
         <Brand inverse />
-        <a className="demo-back" href="#home">
-          <ArrowLeft size={17} aria-hidden="true" />
-          Back to website
-        </a>
+        <div className="demo-header-actions">
+          <PreferenceControls />
+          <a className="demo-back" href="#home">
+            <FlowArrow back size={17} />
+            <span>{common.backSite}</span>
+          </a>
+        </div>
       </header>
       <main id="main-content" tabIndex={-1} className="demo-layout container">
         <div className="demo-intro">
           <span className="eyebrow">
-            <span /> THE SYRIAN MENU EXPERIENCE
+            <span />
+            {t.eyebrow}
           </span>
           <h1>
-            A seat at
+            {t.title}
             <br />
-            <em>our table.</em>
+            <em>{t.emphasis}</em>
           </h1>
           <p>
-            Meet Dar Al Yasmin. A fictional restaurant,
-            <br className="desktop-break" /> with a menu that feels right at home.
+            {t.intro1}
+            <br className="desktop-break" />
+            {t.intro2}
           </p>
           <ol className="demo-hints">
-            <li>
-              <LayoutGrid size={20} aria-hidden="true" />
-              <span>
-                Follow your cravings.<small>Tap a category to explore.</small>
-              </span>
-            </li>
-            <li>
-              <MousePointer2 size={20} aria-hidden="true" />
-              <span>
-                Get a little closer.<small>Open a dish for the delicious details.</small>
-              </span>
-            </li>
-            <li>
-              <Globe2 size={20} aria-hidden="true" />
-              <span>
-                Make yourself comfortable.<small>Switch between Arabic and English.</small>
-              </span>
-            </li>
+            {t.hints.map((hint, index) => {
+              const Icon = icons[index]
+              return (
+                <li key={index}>
+                  <Icon size={20} aria-hidden="true" />
+                  <span>
+                    {hint.title}
+                    <small>{hint.description}</small>
+                  </span>
+                </li>
+              )
+            })}
           </ol>
           <a className="demo-contact" href="#contact">
-            Imagine this for your restaurant <ArrowUpRight size={17} aria-hidden="true" />
+            {t.contact}
+            <FlowArrow diagonal size={17} />
           </a>
           <p className="demo-disclaimer">
-            Sample dishes and illustrative prices.
+            {t.disclaimer1}
             <br />
-            This demo is for browsing; ordering is not available.
+            {t.disclaimer2}
           </p>
         </div>
         <div className="demo-phone-stage">
-          <span className="demo-side-note">A LITTLE SCAN. A WHOLE EXPERIENCE.</span>
+          <span className="demo-side-note">{common.brandTagline}</span>
           <PhoneFrame className="demo-phone">
             <MenuExperience />
           </PhoneFrame>
           <span className="demo-touch-note">
             <Smartphone size={15} aria-hidden="true" />
-            Scroll inside the phone to explore
+            {t.scroll}
           </span>
         </div>
       </main>
@@ -559,6 +546,8 @@ function DemoPage() {
 
 export default function App() {
   const [demo, setDemo] = useState(() => window.location.hash === '#demo')
+  const t = useCopy()
+  useReveals(demo)
   function skipToContent(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault()
     const main = document.getElementById('main-content')
@@ -579,15 +568,15 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
   useEffect(() => {
-    document.title = demo
-      ? 'Try the Experience · SYRIAN MENU'
-      : 'SYRIAN MENU — A fresh way to share your good taste'
+    document.title = demo ? t.common.demoTitle : t.common.title
+  }, [demo, t.common.demoTitle, t.common.title])
+  useEffect(() => {
     if (demo) document.getElementById('main-content')?.focus({ preventScroll: true })
   }, [demo])
   return (
     <>
       <a className="skip-link" href="#main-content" onClick={skipToContent}>
-        Skip to content
+        {t.common.skip}
       </a>
       {demo ? (
         <DemoPage />
@@ -597,9 +586,10 @@ export default function App() {
           <main id="main-content" tabIndex={-1}>
             <Hero />
             <div className="hero-baseline container">
-              <span>YOUR HOSPITALITY, BEAUTIFULLY CONNECTED.</span>
+              <span>{t.hero.baseline}</span>
               <a href="#how-it-works">
-                Discover the difference <ArrowDown size={15} aria-hidden="true" />
+                {t.hero.difference}
+                <ArrowDown size={15} aria-hidden="true" />
               </a>
             </div>
             <HowItWorks />

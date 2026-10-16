@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
 import QRCode from 'qrcode'
+import { useCopy } from '../i18n/useCopy'
 
 export function QR({ size = 82 }: { size?: number }) {
+  const { common } = useCopy()
   const canvas = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     if (!canvas.current) return
@@ -23,7 +25,7 @@ export function QR({ size = 82 }: { size?: number }) {
       })
   }, [size])
   return (
-    <a className="qr-link" href="#demo" aria-label="Open the interactive menu demo">
+    <a className="qr-link" href="#demo" aria-label={common.qr}>
       <canvas ref={canvas} style={{ width: size, height: size }} aria-hidden="true" />
     </a>
   )

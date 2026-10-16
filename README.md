@@ -62,7 +62,19 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The six unit tests cover safe contact configuration, combined bilingual filtering, size prices and Arabic numeral formatting. The eight Chromium tests exercise navigation, menu controls, history, focus, safe contacts, reduced motion and layouts at 320, 390, 768 and 1440 pixels.
+The nine unit tests cover safe contact configuration, bilingual filtering, size prices, Arabic numerals, preference defaults and complete matching translation dictionaries. The nineteen Chromium tests cover original menu behavior, all four language/theme combinations, persistent preferences, initial system theme before React, unavailable storage, stable cloud targets, focus, reduced motion and layouts at 320, 390, 768 and 1440 pixels.
+
+## Language, themes and motion
+
+Use the navbar language and sun/moon controls. Preferences apply to the whole website and menu demo and persist between visits. First-time visitors get their system color preference; explicit theme choices take priority. The small script in `index.html` applies the theme and direction before the application loads. Blocked localStorage gracefully falls back to preferences for the current visit.
+
+- Copy is centralized in `src/i18n/messages.ts`; English and Arabic have matching typed dictionaries. Dish data remains in `src/data/menu.ts`. Arabic uses the locally hosted Cairo font, logical layouts and mirrored directional icons.
+- Semantic light/dark palettes are in `src/tokens.css`. Shared preferences live under `src/preferences/`, and `src/preferences.css` handles the controls and direction-specific presentation.
+- The cloud CTA opens the existing `#demo` route. Only its SVG artwork moves; the clickable link stays fixed. Hover and keyboard focus pause the drift.
+- `src/motion.css` coordinates the hero sequence, varied scroll reveals, button/image feedback, and menu transitions. `src/motion/useReveals.ts` uses a single observer and reveals each element once. Motion uses CSS transforms/opacity; no animation dependency was added.
+- Reduced-motion preferences disable entrances, drifting and transitions, and leave all content visible and all controls usable. No animation delays interaction.
+
+With the server on port 5180, `node scripts/capture-upgrade.mjs` captures desktop and mobile previews of both themes and languages in `artifacts/upgrade/`. The original capture script remains available. Arabic WhatsApp prefill copy is in the translation dictionary; English continues to use the central contact configuration.
 
 With the development server running on port 5180, `node scripts/capture.mjs` saves desktop, mobile and dish-detail previews in `artifacts/`.
 

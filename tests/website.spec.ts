@@ -17,6 +17,7 @@ test('marketing navigation, official contacts and safe placeholder', async ({ pa
 })
 
 test('menu categories, bilingual search, details, size and return', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'ar'))
   await page.goto('/#demo')
   const menu = page.getByTestId('demo-menu')
   await expect(menu).toHaveAttribute('dir', 'rtl')
@@ -31,7 +32,7 @@ test('menu categories, bilingual search, details, size and return', async ({ pag
   await expect(menu.getByRole('heading', { name: 'كباب حلبي', exact: true })).toBeFocused()
   await menu.getByRole('radio', { name: 'كبير' }).check()
   await expect(menu.getByTestId('dish-price')).toContainText('٤٨')
-  await menu.getByRole('button', { name: 'Switch to English' }).click()
+  await menu.getByRole('button', { name: 'التبديل إلى الإنجليزية' }).click()
   await expect(menu).toHaveAttribute('dir', 'ltr')
   await expect(menu.getByRole('heading', { name: 'Aleppo kebab' })).toBeVisible()
   await expect(menu.getByTestId('dish-price')).toContainText('$48')
@@ -42,6 +43,7 @@ test('menu categories, bilingual search, details, size and return', async ({ pag
 })
 
 test('featured carousel is manual, filters persist on back and Escape works', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'ar'))
   await page.goto('/#demo')
   const menu = page.getByTestId('demo-menu')
   await menu.getByRole('button', { name: 'عرض فتوش شامي' }).click()
@@ -121,6 +123,7 @@ test('keyboard skip keeps the demo route and focuses main content', async ({ pag
 })
 
 test('details restore keyboard focus to the originating dish', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'ar'))
   await page.goto('/#demo')
   const menu = page.getByTestId('demo-menu')
   const dish = menu.getByRole('button', { name: 'حمص بالطحينة — عرض التفاصيل', exact: true })

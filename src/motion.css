@@ -1,0 +1,433 @@
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.22, 0.68, 0, 1.01);
+}
+.hero-line {
+  display: block;
+  animation: hero-type-in 760ms var(--ease-out) both;
+}
+.hero-line:nth-child(1) {
+  animation-delay: 65ms;
+}
+.hero-line:nth-child(2) {
+  animation-delay: 140ms;
+}
+.hero-line:nth-child(3) {
+  animation-delay: 220ms;
+}
+.hero-copy > .eyebrow {
+  animation: soft-rise 650ms var(--ease-out) both;
+}
+.hero-description {
+  animation: soft-rise 700ms 240ms var(--ease-out) both;
+}
+.hero-actions {
+  animation: soft-rise 700ms 310ms var(--ease-out) both;
+}
+.hero-assurance {
+  animation: soft-rise 650ms 380ms var(--ease-out) both;
+}
+.hero-photo {
+  animation: hero-photo-in 1000ms 90ms var(--ease-out) both;
+}
+.hero-photo > img {
+  animation: photo-settle 1500ms 100ms var(--ease-out) both;
+}
+.hero-phone {
+  animation: phone-arrive 1100ms 170ms var(--ease-out) both;
+  --phone-tilt: 4deg;
+}
+[dir='rtl'] .hero-phone {
+  --phone-tilt: -4deg;
+}
+.hero-handwritten {
+  animation: quiet-fade 850ms 450ms ease both;
+}
+.hero-scan-note {
+  animation: soft-rise 750ms 480ms var(--ease-out) both;
+}
+.hero-interactive-note {
+  animation: quiet-fade 700ms 650ms ease both;
+}
+.will-reveal {
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 850ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.will-reveal:not(.is-revealed) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.will-reveal[data-reveal='fade']:not(.is-revealed) {
+  transform: none;
+}
+.will-reveal[data-reveal='image']:not(.is-revealed) {
+  transform: translateY(30px) scale(0.975);
+}
+.will-reveal[data-reveal='slide']:not(.is-revealed) {
+  transform: translateX(calc(var(--flow-sign) * 16px));
+}
+.will-reveal[data-reveal='tilt']:not(.is-revealed) {
+  transform: translateY(22px) rotate(2deg);
+}
+.will-reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+.button,
+.preference-button,
+.navigation-toggle,
+.contact-icon,
+.footer-socials a {
+  transition:
+    transform 180ms var(--ease-out),
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 180ms ease,
+    box-shadow 200ms ease;
+}
+.button .flow-arrow,
+.text-link .flow-arrow,
+.contact-row > .flow-arrow,
+.demo-contact > .flow-arrow {
+  transition: transform 240ms var(--ease-out);
+}
+.button:active,
+.preference-button:active,
+.footer-socials a:active {
+  transform: scale(0.975);
+}
+.site-nav > a:not(.button) {
+  position: relative;
+  width: fit-content;
+}
+.site-nav > a:not(.button)::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 8px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 240ms var(--ease-out);
+}
+[dir='rtl'] .site-nav > a::after {
+  transform-origin: right;
+}
+.site-nav > a:hover::after,
+.site-nav > a:focus-visible::after {
+  transform: scaleX(1);
+}
+.feature > svg,
+.step-icon > svg {
+  transition: transform 320ms var(--ease-out);
+}
+.feature-food,
+.experience-table > img,
+.dish-card img {
+  transition: transform 700ms var(--ease-out);
+}
+.cloud-body {
+  animation: cloud-drift 13s 800ms ease-in-out infinite alternate;
+  transform-origin: 50% 60%;
+  transition: filter 250ms ease;
+}
+.cloud-cta:hover .cloud-body,
+.cloud-cta:focus-visible .cloud-body {
+  animation-play-state: paused;
+  filter: drop-shadow(0 5px 5px #12352030);
+}
+.cloud-cta:active .cloud-label {
+  transform: scale(0.96);
+}
+.cloud-shape {
+  transition:
+    fill 250ms,
+    stroke 250ms;
+}
+.cloud-cta:hover .cloud-shape {
+  stroke: var(--text-soft);
+}
+.theme-icon {
+  animation: icon-turn 280ms var(--ease-out) both;
+}
+.preferences-changing main {
+  animation: preference-settle 260ms ease-out;
+}
+.demo-intro {
+  animation: soft-rise 650ms var(--ease-out) both;
+}
+.demo-phone-stage {
+  animation: demo-arrive 800ms 70ms var(--ease-out) both;
+}
+.restaurant-intro {
+  animation: soft-rise 420ms 60ms var(--ease-out) both;
+}
+.spotlight-main > img {
+  animation: spotlight-settle 520ms var(--ease-out) both;
+}
+.spotlight-overlay h3,
+.spotlight-bottom {
+  animation: soft-rise 350ms 40ms var(--ease-out) both;
+}
+.dish-card {
+  animation: dish-enter 360ms var(--ease-out) both;
+}
+.dish-card > button {
+  transition:
+    background-color 180ms ease,
+    box-shadow 200ms ease;
+}
+.dish-card > button:active {
+  background: var(--menu-selection);
+}
+.dish-detail {
+  animation: detail-enter 300ms var(--ease-out) both;
+}
+.menu-empty {
+  animation: quiet-fade 240ms ease both;
+}
+.menu-round:active,
+.menu-categories > button:active {
+  transform: scale(0.97);
+}
+.menu-round,
+.menu-categories > button {
+  transition:
+    transform 150ms ease,
+    background-color 200ms,
+    color 200ms,
+    box-shadow 200ms;
+}
+.dish-sizes label > span {
+  transition:
+    background-color 180ms,
+    box-shadow 180ms,
+    color 180ms;
+}
+.menu-search {
+  animation: soft-rise 250ms var(--ease-out) both;
+}
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    transform: translateY(-2px);
+  }
+  .button:hover > .flow-arrow,
+  .text-link:hover > .flow-arrow,
+  .contact-row:hover > .flow-arrow,
+  .demo-contact:hover > .flow-arrow {
+    transform: translateX(calc(var(--flow-sign) * 3px));
+  }
+  .feature:hover > svg {
+    transform: translateY(-2px) rotate(-7deg);
+  }
+  .step:hover .step-icon > svg {
+    transform: scale(1.08);
+  }
+  .feature-visual:hover .feature-food {
+    transform: scale(1.018);
+  }
+  .experience-table:hover > img {
+    transform: rotate(-10deg) scale(1.02);
+  }
+  .dish-card:hover img {
+    transform: scale(1.045);
+  }
+  .contact-row:hover .contact-icon,
+  .footer-socials a:hover {
+    transform: translateY(-2px);
+  }
+  .preference-button:hover {
+    transform: translateY(-1px);
+  }
+}
+@keyframes hero-type-in {
+  from {
+    opacity: 0.05;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes soft-rise {
+  from {
+    opacity: 0.15;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes hero-photo-in {
+  from {
+    opacity: 0.2;
+    transform: translateY(15px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes photo-settle {
+  from {
+    transform: scale(1.07);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes phone-arrive {
+  from {
+    opacity: 0.1;
+    transform: translateY(24px) rotate(calc(var(--phone-tilt) - 2deg));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--phone-tilt));
+  }
+}
+@keyframes quiet-fade {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes cloud-drift {
+  0% {
+    transform: translate(0, 0) rotate(-0.7deg);
+  }
+  24% {
+    transform: translate(1.8px, -2px) rotate(0.5deg);
+  }
+  53% {
+    transform: translate(-1.4px, -0.6px) rotate(-0.35deg);
+  }
+  78% {
+    transform: translate(0.8px, 1.2px) rotate(0.6deg);
+  }
+  100% {
+    transform: translate(-0.6px, -1.4px) rotate(-0.3deg);
+  }
+}
+@keyframes icon-turn {
+  from {
+    opacity: 0.5;
+    transform: rotate(-35deg) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes preference-settle {
+  from {
+    opacity: 0.93;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes demo-arrive {
+  from {
+    opacity: 0.2;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes spotlight-settle {
+  from {
+    opacity: 0.55;
+    transform: scale(1.035);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes dish-enter {
+  from {
+    opacity: 0.35;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes detail-enter {
+  from {
+    opacity: 0.45;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 650px) {
+  .hero-phone {
+    --phone-tilt: 3deg;
+  }
+  [dir='rtl'] .hero-phone {
+    --phone-tilt: -3deg;
+  }
+  .cloud-body {
+    animation-name: cloud-drift-mobile;
+  }
+  .will-reveal {
+    transition-duration: 550ms;
+  }
+  .will-reveal:not(.is-revealed) {
+    transform: translateY(16px);
+  }
+  .will-reveal[data-reveal='fade']:not(.is-revealed) {
+    transform: none;
+  }
+}
+@keyframes cloud-drift-mobile {
+  0% {
+    transform: translate(0, -0.6px) rotate(-0.3deg);
+  }
+  40% {
+    transform: translate(1px, 0.6px) rotate(0.3deg);
+  }
+  75% {
+    transform: translate(-0.7px, -1px) rotate(-0.2deg);
+  }
+  100% {
+    transform: translate(0.5px, 0.2px) rotate(0.2deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .will-reveal:not(.is-revealed) {
+    opacity: 1;
+    transform: none;
+  }
+  .hero-line {
+    opacity: 1;
+  }
+  .button:hover,
+  .preference-button:hover {
+    transform: none;
+  }
+  .cloud-body {
+    transform: none;
+  }
+}

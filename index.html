@@ -1,8 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      ;(() => {
+        let language = null
+        let theme = null
+        try {
+          language = localStorage.getItem('syrian-menu-language')
+          theme = localStorage.getItem('syrian-menu-theme')
+        } catch {
+          /* Restricted storage must not block the initial theme. */
+        }
+        const root = document.documentElement
+        const resolvedTheme =
+          theme === 'light' || theme === 'dark'
+            ? theme
+            : matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+        root.dataset.theme = resolvedTheme
+        root.style.colorScheme = resolvedTheme
+        root.lang = language === 'ar' ? 'ar' : 'en'
+        root.dir = root.lang === 'ar' ? 'rtl' : 'ltr'
+      })()
+    </script>
+    <style>
+      html {
+        background: #f7f4ed;
+      }
+      html[data-theme='dark'] {
+        background: #13241d;
+      }
+    </style>
     <link rel="icon" type="image/png" href="/brand/symbol.png" />
+    <link
+      rel="preload"
+      href="/fonts/cairo-arabic-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link
       rel="preload"
       href="/fonts/inter-latin-wght-normal.woff2"

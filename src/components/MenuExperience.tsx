@@ -17,66 +17,15 @@ import {
   filterDishes,
   formatPrice,
   type Dish,
-  type Language,
   type Size,
 } from '../data/menu'
 import './menu.css'
-
-const copy = {
-  ar: {
-    restaurant: 'دار الياسمين',
-    tagline: 'مطبخ شامي أصيل',
-    demo: 'قائمة تجريبية',
-    search: 'بحث',
-    searchLabel: 'ابحث عن طبق',
-    placeholder: 'ما الذي تشتهيه اليوم؟',
-    details: 'عرض التفاصيل',
-    back: 'العودة إلى القائمة',
-    size: 'الحجم',
-    small: 'صغير',
-    regular: 'وسط',
-    large: 'كبير',
-    description: 'الوصف',
-    ingredients: 'المكونات',
-    note: 'معلومات غذائية',
-    noResults: 'لا توجد أطباق مطابقة',
-    noResultsHelp: 'جرّب كلمة أخرى أو استعرض القائمة كاملة.',
-    reset: 'عرض كل الأطباق',
-    featured: 'من مائدتنا',
-    all: 'قائمتنا',
-    items: 'أطباق',
-    powered: 'بكل محبة، من',
-    close: 'إغلاق البحث',
-  },
-  en: {
-    restaurant: 'Dar Al Yasmin',
-    tagline: 'Authentic Levantine kitchen',
-    demo: 'Sample menu',
-    search: 'Search',
-    searchLabel: 'Search dishes',
-    placeholder: 'What are you craving?',
-    details: 'View details',
-    back: 'Back to menu',
-    size: 'Size',
-    small: 'Small',
-    regular: 'Regular',
-    large: 'Large',
-    description: 'Description',
-    ingredients: 'Ingredients',
-    note: 'Dietary information',
-    noResults: 'No matching dishes',
-    noResultsHelp: 'Try another search or browse the whole menu.',
-    reset: 'Show all dishes',
-    featured: 'From our table',
-    all: 'Our menu',
-    items: 'dishes',
-    powered: 'Made with care by',
-    close: 'Close search',
-  },
-}
+import { usePreferences } from '../preferences/context'
+import { useCopy } from '../i18n/useCopy'
+import { formatMessage } from '../i18n/messages'
 
 export function MenuExperience({ preview = false }: { preview?: boolean }) {
-  const [language, setLanguage] = useState<Language>('ar')
+  const { language, setLanguage } = usePreferences()
   const [category, setCategory] = useState('all')
   const [query, setQuery] = useState('')
   const [searchOpen, setSearchOpen] = useState(false)
@@ -91,8 +40,10 @@ export function MenuExperience({ preview = false }: { preview?: boolean }) {
   const savedScroll = useRef(0)
   const searchToggle = useRef<HTMLButtonElement>(null)
   const inputId = useId()
-  const text = copy[language]
+  const { menu: text, common } = useCopy()
   const BackArrow = language === 'ar' ? ArrowRight : ArrowLeft
+  const PreviousArrow = language === 'ar' ? ChevronRight : ChevronLeft
+  const NextArrow = language === 'ar' ? ChevronLeft : ChevronRight
   const items = filterDishes(category, query)
   const featuredDishes = [dishes[0], dishes[1], dishes[2]]
   const featured = featuredDishes[featuredIndex]
@@ -139,7 +90,7 @@ export function MenuExperience({ preview = false }: { preview?: boolean }) {
       <header className="menu-masthead">
         <div className="menu-platform">
           <img src="/brand/symbol.png" alt="" width="31" height="35" />
-          <span>SYRIAN MENU</span>
+          <span dir="ltr">SYRIAN MENU</span>
         </div>
         <div className="menu-tools">
           <button
@@ -157,10 +108,10 @@ export function MenuExperience({ preview = false }: { preview?: boolean }) {
           </button>
           <button
             className="menu-round menu-language"
-            aria-label={language === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'}
+            aria-label={common.switchLanguage}
             onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')}
           >
-            {language === 'ar' ? 'EN' : 'ع'}
+            {common.languageName}
           </button>
         </div>
       </header>
@@ -267,6 +218,7 @@ export function MenuExperience({ preview = false }: { preview?: boolean }) {
             <section className="menu-spotlight" aria-label={text.featured}>
               <button
                 className="spotlight-main"
+                key={featured.id}
                 data-focus-key={`featured-${featured.id}`}
                 onClick={(event) => openDish(featured, event.currentTarget)}
                 aria-label={`${text.featured}: ${featured.name[language]} — ${text.details}`}
@@ -292,17 +244,15 @@ export function MenuExperience({ preview = false }: { preview?: boolean }) {
               <div className="spotlight-controls">
                 <button
                   onClick={() => setFeaturedIndex((featuredIndex + 2) % 3)}
-                  aria-label={language === 'ar' ? 'الطبق السابق' : 'Previous featured dish'}
+                  aria-label={text.previous}
                 >
-                  <ChevronRight size={15} aria-hidden="true" />
+                  <PreviousArrow size={15} aria-hidden="true" />
                 </button>
                 <div>
                   {featuredDishes.map((dish, index) => (
                     <button
                       key={dish.id}
-                      aria-label={
-                        language === 'ar' ? `عرض ${dish.name.ar}` : `Show ${dish.name.en}`
-                      }
+                      aria-label={formatMessage(text.show, { dish: dish.name[language] })}
                       aria-pressed={index === featuredIndex}
                       onClick={() => setFeaturedIndex(index)}
                     >
@@ -312,16 +262,13 @@ export function MenuExperience({ preview = false }: { preview?: boolean }) {
                 </div>
                 <button
                   onClick={() => setFeaturedIndex((featuredIndex + 1) % 3)}
-                  aria-label={language === 'ar' ? 'الطبق التالي' : 'Next featured dish'}
+                  aria-label={text.next}
                 >
-                  <ChevronLeft size={15} aria-hidden="true" />
+                  <NextArrow size={15} aria-hidden="true" />
                 </button>
               </div>
             </section>
-            <nav
-              className="menu-categories"
-              aria-label={language === 'ar' ? 'أقسام القائمة' : 'Menu categories'}
-            >
+            <nav className="menu-categories" aria-label={text.categories}>
               {categories.map((item) => (
                 <button
                   key={item.id}
@@ -339,13 +286,20 @@ export function MenuExperience({ preview = false }: { preview?: boolean }) {
                   : categories.find((item) => item.id === category)?.name[language]}
               </h3>
               <span role="status" aria-live="polite">
-                {items.length} {text.items}
+                {new Intl.NumberFormat(language === 'ar' ? 'ar-u-nu-arab' : 'en').format(
+                  items.length,
+                )}{' '}
+                {text.items}
               </span>
             </div>
             {items.length ? (
-              <ul className="dish-grid">
-                {items.map((dish) => (
-                  <li key={dish.id} className="dish-card">
+              <ul className="dish-grid" key={category}>
+                {items.map((dish, index) => (
+                  <li
+                    key={dish.id}
+                    className="dish-card"
+                    style={{ animationDelay: Math.min(index, 5) * 32 + 'ms' }}
+                  >
                     <button
                       data-focus-key={`dish-${dish.id}`}
                       onClick={(event) => openDish(dish, event.currentTarget)}
@@ -383,10 +337,7 @@ export function MenuExperience({ preview = false }: { preview?: boolean }) {
               </div>
             )}
             <div className="menu-sample-note">
-              {text.demo} ·{' '}
-              {language === 'ar'
-                ? 'مطعم وأطباق لأغراض العرض فقط'
-                : 'Fictional restaurant. Illustrative prices.'}
+              {text.demo} · {text.sampleNote}
             </div>
           </>
         )}

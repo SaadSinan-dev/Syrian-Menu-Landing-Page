@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  background: var(--ivory);
+  background: var(--canvas);
   border-bottom: 1px solid #deded240;
 }
 .header-inner {
@@ -59,7 +59,7 @@
   padding-block: 15px;
 }
 .site-nav > a:not(.button):hover {
-  color: #6d8156;
+  color: var(--text-soft);
 }
 .navigation-toggle {
   display: none;
@@ -109,7 +109,7 @@
   gap: 6px;
 }
 .hero-assurance svg {
-  color: #577556;
+  color: var(--text-soft);
 }
 .hero-stage {
   position: relative;
@@ -119,12 +119,12 @@
 .hero-photo {
   position: absolute;
   top: 55px;
-  left: 0;
+  inset-inline-start: 0;
   width: 73%;
   height: 457px;
   border-radius: 160px 14px 14px 14px;
   overflow: hidden;
-  background: #e1decf;
+  background: var(--surface-accent);
 }
 .hero-photo > img {
   width: 100%;
@@ -142,7 +142,7 @@
   position: absolute;
   z-index: 1;
   bottom: 30px;
-  left: 25px;
+  inset-inline-start: 25px;
   color: white;
   font-size: 8px;
   letter-spacing: 1.7px;
@@ -151,11 +151,11 @@
 .hero-handwritten {
   position: absolute;
   top: -2px;
-  left: 44px;
+  inset-inline-start: 44px;
   font-family: 'IBM Plex Sans Arabic', sans-serif;
   font-size: 29px;
   font-weight: 600;
-  color: #64815c;
+  color: var(--text-soft);
   transform: rotate(-9deg);
 }
 .phone-frame {
@@ -183,7 +183,7 @@
 .phone-status {
   height: 32px;
   flex-shrink: 0;
-  background: var(--ivory);
+  background: var(--canvas);
   color: #182c23;
   display: flex;
   align-items: center;
@@ -200,7 +200,7 @@
   height: 19px;
   background: #14211b;
   border-radius: 20px;
-  left: 50%;
+  inset-inline-start: 50%;
   top: 5px;
   transform: translateX(-50%);
 }
@@ -231,7 +231,7 @@
 }
 .hero-phone {
   position: absolute;
-  right: 4px;
+  inset-inline-end: 4px;
   top: 0;
   width: 286px;
   height: 559px;
@@ -240,10 +240,10 @@
 }
 .hero-scan-note {
   position: absolute;
-  left: -22px;
+  inset-inline-start: -22px;
   bottom: 14px;
   background: var(--white);
-  border: 1px solid #e1dfd2;
+  border: 1px solid var(--line);
   z-index: 3;
   border-radius: 7px;
   padding: 12px 15px;
@@ -269,7 +269,7 @@
 }
 .hero-scan-note strong {
   font-weight: 500;
-  color: var(--forest);
+  color: var(--text);
 }
 .hero-scan-note > svg {
   align-self: flex-end;
@@ -277,13 +277,13 @@
 }
 .hero-interactive-note {
   position: absolute;
-  right: 18px;
+  inset-inline-end: 18px;
   bottom: 3px;
   font-size: 9px;
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #5b7057;
+  color: var(--text-soft);
 }
 .hero-baseline {
   border-top: 1px solid var(--line);
@@ -302,7 +302,7 @@
   letter-spacing: 0;
 }
 .how-section {
-  background: #eeefe5;
+  background: var(--surface-soft);
 }
 .section-heading {
   display: flex;
@@ -326,7 +326,7 @@
 }
 .step {
   padding-top: 24px;
-  border-top: 1px solid #c7d0bd;
+  border-top: 1px solid var(--line-strong);
 }
 .step-top {
   display: flex;
@@ -337,7 +337,7 @@
 .step-icon {
   height: 47px;
   width: 47px;
-  border: 1px solid #cad4c2;
+  border: 1px solid var(--line-strong);
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -345,7 +345,7 @@
 .step-number {
   font-family: Lora, Georgia, serif;
   font-size: 33px;
-  color: #98a28c;
+  color: var(--muted);
 }
 .step h3 {
   font-family: Lora, Georgia, serif;
@@ -389,13 +389,13 @@
 .feature-dish-label {
   position: absolute;
   bottom: -24px;
-  left: 25px;
+  inset-inline-start: 25px;
   width: calc(100% - 50px);
   padding: 24px 28px;
   background: var(--white);
   border-radius: 6px;
   box-shadow: 0 8px 30px #273e2612;
-  border: 1px solid #e1dfd3;
+  border: 1px solid var(--line);
 }
 .feature-dish-label > span {
   font-size: 7px;
@@ -422,12 +422,12 @@
 .feature-language-label {
   position: absolute;
   top: 30px;
-  left: -23px;
+  inset-inline-start: -23px;
   display: flex;
   align-items: center;
   gap: 13px;
   background: var(--white);
-  border: 1px solid #e4e4d7;
+  border: 1px solid var(--line);
   border-radius: 5px;
   padding: 13px 16px;
   font-size: 10px;
@@ -457,7 +457,7 @@
   display: flex;
   gap: 16px;
   padding-block: 18px;
-  border-bottom: 1px solid #e1e2d6;
+  border-bottom: 1px solid var(--line);
 }
 .feature:last-child {
   border-bottom: 0;
@@ -466,7 +466,7 @@
 .feature > svg {
   flex-shrink: 0;
   margin-top: 2px;
-  color: #5c7554;
+  color: var(--text-soft);
 }
 .feature h3 {
   font-size: 12px;
@@ -506,8 +506,8 @@
   color: #c2cfc0;
 }
 .button-cream {
-  background: var(--ivory);
-  color: var(--forest);
+  background: var(--canvas);
+  color: var(--text);
   border-color: var(--ivory);
   margin-top: 27px;
 }
@@ -526,7 +526,7 @@
 }
 .experience-table > img {
   position: absolute;
-  right: -70px;
+  inset-inline-end: -70px;
   top: -15px;
   width: 365px;
   height: 365px;
@@ -538,11 +538,11 @@
 .table-card {
   position: absolute;
   top: 27px;
-  left: 30px;
+  inset-inline-start: 30px;
   width: 190px;
   min-height: 290px;
   background: #fffefa;
-  color: var(--forest);
+  color: var(--text);
   padding: 23px 18px;
   display: flex;
   align-items: center;
@@ -601,7 +601,7 @@
 .contact-icon {
   width: 45px;
   height: 45px;
-  background: #e9ede0;
+  background: var(--surface-accent);
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -625,8 +625,8 @@
 }
 .whatsapp-contact {
   margin-top: 25px;
-  border: 1px solid #d7decd;
-  background: #eef0e5;
+  border: 1px solid var(--line);
+  background: var(--surface-contact);
   border-radius: 7px;
   padding: 23px;
 }
@@ -640,7 +640,7 @@
 }
 .contact-status {
   margin-inline-start: auto;
-  background: #e0e7d3;
+  background: var(--badge-bg);
   border-radius: 3px;
   font-size: 6px;
   letter-spacing: 0.6px;
@@ -668,17 +668,17 @@
   gap: 8px;
   align-items: center;
   margin-top: 19px;
-  color: #4e6749;
+  color: var(--text-soft);
   font-size: 10px;
-  border-top: 1px solid #d5ddc9;
+  border-top: 1px solid var(--line);
   padding-top: 15px;
 }
 .whatsapp-button {
   margin-top: 18px;
 }
 .site-footer {
-  background: #eeefe5;
-  border-top: 1px solid #e2e3d7;
+  background: var(--surface-soft);
+  border-top: 1px solid var(--line);
   padding-top: 50px;
 }
 .footer-top {
@@ -710,20 +710,20 @@
   height: 40px;
   display: grid;
   place-items: center;
-  border: 1px solid #ccd5c3;
+  border: 1px solid var(--line);
   border-radius: 50%;
 }
 .footer-socials a:hover {
-  background: #dde4d1;
+  background: var(--surface-hover);
 }
 .footer-bottom {
   padding-block: 22px;
-  border-top: 1px solid #d5dbc9;
+  border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   gap: 20px;
   font-size: 8px;
-  color: #65705d;
+  color: var(--muted);
 }
 .footer-bottom > a {
   display: flex;
@@ -841,7 +841,7 @@
 .demo-side-note {
   position: absolute;
   top: 50%;
-  left: -35px;
+  inset-inline-start: -35px;
   writing-mode: vertical-rl;
   transform: translateY(-50%) rotate(180deg);
   font-size: 7px;
@@ -897,7 +897,7 @@
     height: 575px;
   }
   .hero-scan-note {
-    left: -12px;
+    inset-inline-start: -12px;
   }
   .hero-photo {
     width: 75%;
@@ -959,19 +959,19 @@
   .hero-phone {
     width: 250px;
     height: 510px;
-    right: 0;
+    inset-inline-end: 0;
   }
   .hero-photo {
-    left: -14px;
+    inset-inline-start: -14px;
     top: 70px;
     height: 355px;
   }
   .hero-handwritten {
-    left: 0;
+    inset-inline-start: 0;
     font-size: 23px;
   }
   .hero-scan-note {
-    left: -15px;
+    inset-inline-start: -15px;
     bottom: 0;
     padding: 9px 12px;
     gap: 8px;
@@ -1029,7 +1029,7 @@
     font-size: 35px;
   }
   .feature-dish-label {
-    left: 15px;
+    inset-inline-start: 15px;
     width: calc(100% - 30px);
     padding: 20px;
   }
@@ -1037,7 +1037,7 @@
     font-size: 6px;
   }
   .feature-language-label {
-    left: -15px;
+    inset-inline-start: -15px;
     padding: 10px 12px;
     gap: 9px;
   }
@@ -1048,11 +1048,11 @@
     font-size: 11px;
   }
   .table-card {
-    left: 0;
+    inset-inline-start: 0;
     width: 170px;
   }
   .experience-table > img {
-    right: -75px;
+    inset-inline-end: -75px;
     top: 8px;
     width: 300px;
     height: 300px;
@@ -1101,7 +1101,7 @@
     font-size: 7px;
   }
   .demo-side-note {
-    left: -20px;
+    inset-inline-start: -20px;
   }
 }
 @media (max-width: 650px) {
@@ -1139,9 +1139,9 @@
     display: none;
     position: absolute;
     top: 78px;
-    left: 0;
-    right: 0;
-    background: var(--ivory);
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    background: var(--canvas);
     border-bottom: 1px solid var(--line);
     box-shadow: 0 18px 25px #14312615;
     padding: 16px 24px 24px;
@@ -1204,26 +1204,26 @@
   .hero-phone {
     width: 266px;
     height: 526px;
-    right: 6px;
+    inset-inline-end: 6px;
     top: 5px;
     transform: rotate(3deg);
   }
   .hero-photo {
     height: 410px;
     top: 45px;
-    left: 0;
+    inset-inline-start: 0;
     width: 72%;
-    border-top-left-radius: 130px;
+    border-start-start-radius: 130px;
   }
   .hero-handwritten {
-    left: 7px;
+    inset-inline-start: 7px;
     top: -7px;
     font-size: 24px;
     z-index: 1;
   }
   .hero-scan-note {
     bottom: 0;
-    left: 0;
+    inset-inline-start: 0;
     padding: 11px 13px;
     gap: 12px;
   }
@@ -1298,11 +1298,11 @@
   .feature-food {
     min-height: 0;
     height: 100%;
-    border-top-right-radius: 100px;
+    border-start-end-radius: 100px;
   }
   .feature-dish-label {
     bottom: -20px;
-    left: 20px;
+    inset-inline-start: 20px;
     width: calc(100% - 40px);
     padding: 20px 23px;
   }
@@ -1310,7 +1310,7 @@
     font-size: 7px;
   }
   .feature-language-label {
-    left: -7px;
+    inset-inline-start: -7px;
   }
   .features-copy h2 {
     font-size: 37px;
@@ -1346,13 +1346,13 @@
     justify-self: center;
   }
   .experience-table > img {
-    right: -50px;
+    inset-inline-end: -50px;
     width: 295px;
     height: 295px;
     top: 6px;
   }
   .table-card {
-    left: 2px;
+    inset-inline-start: 2px;
     top: 24px;
     min-height: 267px;
     width: 173px;
@@ -1417,7 +1417,7 @@
     display: none;
   }
   .footer-bottom > a {
-    margin-left: auto;
+    margin-inline-start: auto;
   }
   .demo-header {
     height: 82px;
@@ -1507,7 +1507,7 @@
   .hero-phone {
     width: 245px;
     height: 498px;
-    right: 3px;
+    inset-inline-end: 3px;
   }
   .hero-photo {
     height: 383px;

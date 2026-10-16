@@ -1,3 +1,11 @@
+@import './tokens.css';
+
+@font-face {
+  font-family: Cairo;
+  src: url('/fonts/cairo-arabic-wght-normal.woff2') format('woff2');
+  font-weight: 200 1000;
+  font-display: swap;
+}
 @font-face {
   font-family: Inter;
   src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2');
@@ -30,19 +38,12 @@
 }
 :root {
   font-family: Inter, Arial, sans-serif;
-  color: #183e30;
-  background: #f7f4ed;
+  color: var(--text);
+  background: var(--canvas);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --ivory: #f7f4ed;
-  --forest: #163f30;
-  --ink: #182c23;
-  --muted: #657067;
-  --line: #dcded1;
-  --gold: #d2b77b;
-  --white: #fffefa;
 }
 * {
   box-sizing: border-box;
@@ -111,7 +112,7 @@ input {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
-  outline: 3px solid #ae753b;
+  outline: 3px solid var(--focus);
   outline-offset: 5px;
 }
 ::selection {
@@ -156,7 +157,7 @@ h2 {
 h2 em,
 h1 em {
   font-weight: 400;
-  color: #547154;
+  color: var(--heading-accent);
 }
 .button {
   display: inline-flex;
@@ -165,16 +166,16 @@ h1 em {
   gap: 24px;
   padding: 18px 24px;
   min-height: 54px;
-  background: var(--forest);
-  color: var(--white);
-  border: 1px solid var(--forest);
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-bg);
   border-radius: 5px;
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
 }
 .button:hover {
-  background: #2f5a42;
+  background: var(--button-hover);
   box-shadow: 0 5px 16px #153e3017;
 }
 .button-small {
