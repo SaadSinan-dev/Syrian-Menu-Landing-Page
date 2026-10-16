@@ -31,7 +31,6 @@ import { useCopy } from './i18n/useCopy'
 import { formatMessage } from './i18n/messages'
 import { usePreferences } from './preferences/context'
 import { useReveals } from './motion/useReveals'
-import { formatPrice } from './data/menu'
 import './App.css'
 import './preferences.css'
 import './motion.css'
@@ -217,7 +216,6 @@ function HowItWorks() {
 
 function Features() {
   const { features: t } = useCopy()
-  const { language } = usePreferences()
   const icons = [Palette, Image, LayoutGrid, Globe2]
   return (
     <section id="features" className="features-section section-space container">
