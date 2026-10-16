@@ -1,14 +1,24 @@
 import { test, expect } from '@playwright/test'
 
-test('mobile navigation opens into its links for keyboard users and Escape restores the toggle', async ({ page }) => {
+test('mobile navigation opens into its links for keyboard users and Escape restores the toggle', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')
   const toggle = page.getByTestId('navigation-toggle')
   await toggle.focus()
   await page.keyboard.press('Enter')
-  await expect(page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'How it works' })).toBeFocused()
+  await expect(
+    page
+      .getByRole('navigation', { name: 'Main navigation' })
+      .getByRole('link', { name: 'How it works' }),
+  ).toBeFocused()
   await page.keyboard.press('Tab')
-  await expect(page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Made for your restaurant' })).toBeFocused()
+  await expect(
+    page
+      .getByRole('navigation', { name: 'Main navigation' })
+      .getByRole('link', { name: 'Made for your restaurant' }),
+  ).toBeFocused()
   await page.keyboard.press('Escape')
   await expect(toggle).toBeFocused()
   await expect(toggle).toHaveAttribute('aria-expanded', 'false')
