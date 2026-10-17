@@ -26,6 +26,7 @@ import { CloudCTA } from './components/CloudCTA'
 import { PreferenceControls } from './components/PreferenceControls'
 import { FlowArrow } from './components/FlowArrow'
 import { TrialApplication } from './components/TrialApplication'
+import { ContactForm } from './components/ContactForm'
 import { contact, resolveWhatsApp } from './config/contact'
 import { useCopy } from './i18n/useCopy'
 import { formatMessage } from './i18n/messages'
@@ -110,11 +111,11 @@ function Hero() {
           {t.eyebrow}
         </div>
         <h1 id="hero-title">
-  <span className="hero-line">
-    {t.line1} {t.line2}
-  </span>
-  <em className="hero-line">{t.emphasis}</em>
-</h1>
+          <span className="hero-line">
+            {t.line1} {t.line2}
+          </span>
+          <em className="hero-line">{t.emphasis}</em>
+        </h1>
         <p className="hero-description">{t.description}</p>
         <div className="hero-actions">
           <a className="button" href="#demo">
@@ -138,7 +139,6 @@ function Hero() {
         </div>
       </div>
       <div className="hero-stage">
-
         <PhoneFrame className="hero-phone">
           <MenuExperience preview />
         </PhoneFrame>
@@ -232,25 +232,39 @@ function Features() {
                 {index === 0 && (
                   <>
                     <Flower2 size={32} strokeWidth={1.25} />
-                    <span className="preview-palette"><i /><i /><i /></span>
+                    <span className="preview-palette">
+                      <i />
+                      <i />
+                      <i />
+                    </span>
                   </>
                 )}
                 {index === 1 && (
                   <>
                     <Image size={34} strokeWidth={1.2} />
-                    <span className="preview-copy-lines"><i /><i /></span>
+                    <span className="preview-copy-lines">
+                      <i />
+                      <i />
+                    </span>
                   </>
                 )}
                 {index === 2 && (
                   <>
                     <LayoutGrid size={27} strokeWidth={1.25} />
-                    <span className="preview-categories"><i /><i /><i /></span>
+                    <span className="preview-categories">
+                      <i />
+                      <i />
+                      <i />
+                    </span>
                   </>
                 )}
                 {index === 3 && (
                   <>
                     <Globe2 size={30} strokeWidth={1.2} />
-                    <span className="preview-languages"><b lang="en">Aa</b><b lang="ar">أ ب</b></span>
+                    <span className="preview-languages">
+                      <b lang="en">Aa</b>
+                      <b lang="ar">أ ب</b>
+                    </span>
                   </>
                 )}
               </div>
@@ -325,7 +339,6 @@ function ExperienceSection() {
           <span className="experience-footnote">{t.footnote}</span>
         </div>
         <div className="experience-table" data-reveal="tilt">
-
           <div className="table-card">
             <Flower2 className="table-card-flower" size={28} strokeWidth={1.3} aria-hidden="true" />
             <span className="table-card-name">{t.restaurant}</span>
@@ -351,84 +364,89 @@ function Contact() {
     message: language === 'ar' ? t.message : contact.whatsapp.message,
   })
   return (
-    <section id="contact" className="contact-section section-space container">
-      <div className="contact-heading" data-reveal="rise">
-        <span className="eyebrow">{t.eyebrow}</span>
-        <h2>
-          {t.title}
-          <br />
-          <em>{t.emphasis}</em>
-        </h2>
-        <p>
-          {t.intro1}
-          <br />
-          {t.intro2}
-        </p>
-      </div>
-      <div className="contact-options" data-reveal="fade">
-        <a className="contact-row" href={'mailto:' + contact.email}>
-          <span className="contact-icon">
-            <Mail size={23} strokeWidth={1.5} aria-hidden="true" />
-          </span>
-          <span>
-            <small>{t.email}</small>
-            <strong dir="ltr">{contact.email}</strong>
-          </span>
-          <FlowArrow diagonal size={21} />
-        </a>
-        <a
-          className="contact-row"
-          href={contact.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="contact-icon">
-            <Instagram size={23} strokeWidth={1.5} aria-hidden="true" />
-          </span>
-          <span>
-            <small>{t.instagram}</small>
-            <strong dir="ltr">@syrian_menu</strong>
-          </span>
-          <FlowArrow diagonal size={21} />
-        </a>
-        {whatsapp && (
-          <div className="whatsapp-contact">
-            <div className="whatsapp-title">
-              <MessageCircle size={23} strokeWidth={1.5} aria-hidden="true" />
-              <span>{t.keep}</span>
-              <span className="contact-status">{whatsapp.href ? t.hello : t.soon}</span>
-            </div>
-            {whatsapp.href ? (
-              <a
-                className="button whatsapp-button"
-                href={whatsapp.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t.chat}
-                <FlowArrow diagonal size={18} />
-              </a>
-            ) : (
-              <>
-                <p>
-                  {t.whatsapp1}
-                  <br />
-                  {t.whatsapp2}
-                </p>
-                {whatsapp.number && (
-                  <span className="temporary-number">
-                    <bdi dir="ltr">{whatsapp.number}</bdi>
-                    <small>{t.placeholder}</small>
-                  </span>
+    <section id="contact" className="contact-section section-space" aria-labelledby="contact-title">
+      <div className="contact-layout">
+        <div className="contact-intro">
+          <div className="contact-heading" data-reveal="rise">
+            <span className="eyebrow">{t.eyebrow}</span>
+            <h2 id="contact-title">
+              {t.title}
+              <br />
+              <em>{t.emphasis}</em>
+            </h2>
+            <p>
+              {t.intro1}
+              <br />
+              {t.intro2}
+            </p>
+          </div>
+          <div className="contact-options" data-reveal="fade">
+            <a className="contact-row" href={'mailto:' + contact.email}>
+              <span className="contact-icon">
+                <Mail size={23} strokeWidth={1.5} aria-hidden="true" />
+              </span>
+              <span>
+                <small>{t.email}</small>
+                <strong dir="ltr">{contact.email}</strong>
+              </span>
+              <FlowArrow diagonal size={21} />
+            </a>
+            <a
+              className="contact-row"
+              href={contact.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="contact-icon">
+                <Instagram size={23} strokeWidth={1.5} aria-hidden="true" />
+              </span>
+              <span>
+                <small>{t.instagram}</small>
+                <strong dir="ltr">@syrian_menu</strong>
+              </span>
+              <FlowArrow diagonal size={21} />
+            </a>
+            {whatsapp && (
+              <div className="whatsapp-contact">
+                <div className="whatsapp-title">
+                  <MessageCircle size={23} strokeWidth={1.5} aria-hidden="true" />
+                  <span>{t.keep}</span>
+                  <span className="contact-status">{whatsapp.href ? t.hello : t.soon}</span>
+                </div>
+                {whatsapp.href ? (
+                  <a
+                    className="button whatsapp-button"
+                    href={whatsapp.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t.chat}
+                    <FlowArrow diagonal size={18} />
+                  </a>
+                ) : (
+                  <>
+                    <p>
+                      {t.whatsapp1}
+                      <br />
+                      {t.whatsapp2}
+                    </p>
+                    {whatsapp.number && (
+                      <span className="temporary-number">
+                        <bdi dir="ltr">{whatsapp.number}</bdi>
+                        <small>{t.placeholder}</small>
+                      </span>
+                    )}
+                    <span className="whatsapp-coming-soon">
+                      <MessageCircle size={16} aria-hidden="true" />
+                      {t.comingSoon}
+                    </span>
+                  </>
                 )}
-                <span className="whatsapp-coming-soon">
-                  <MessageCircle size={16} aria-hidden="true" />
-                  {t.comingSoon}
-                </span>
-              </>
+              </div>
             )}
           </div>
-        )}
+        </div>
+        <ContactForm />
       </div>
     </section>
   )

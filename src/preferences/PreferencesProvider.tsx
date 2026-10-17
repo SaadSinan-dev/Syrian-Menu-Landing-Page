@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import type { Language } from '../data/menu'
 import { PreferencesContext } from './context'
-import { preferenceKeys, readPreference, writePreference, type Theme } from './settings'
+import { preferenceKeys, writePreference, type Theme } from './settings'
 
 export function PreferencesProvider({ children }: { children: ReactNode }) {
   const [language, updateLanguage] = useState<Language>(() =>
@@ -9,9 +9,6 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   )
   const [theme, updateTheme] = useState<Theme>(() =>
     document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
-  )
-  const explicitTheme = useRef(
-    ['dark', 'light'].includes(readPreference(preferenceKeys.theme) ?? ''),
   )
   const transitionTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
@@ -33,24 +30,13 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
   }
   function setTheme(next: Theme) {
     briefTransition()
-    explicitTheme.current = true
     document.documentElement.dataset.theme = next
     document.documentElement.style.colorScheme = next
     updateTheme(next)
     writePreference(preferenceKeys.theme, next)
   }
   useEffect(() => {
-    const query = matchMedia('(prefers-color-scheme: dark)')
-    function onSystemChange(event: MediaQueryListEvent) {
-      if (explicitTheme.current) return
-      const next = event.matches ? 'dark' : 'light'
-      document.documentElement.dataset.theme = next
-      document.documentElement.style.colorScheme = next
-      updateTheme(next)
-    }
-    query.addEventListener('change', onSystemChange)
     return () => {
-      query.removeEventListener('change', onSystemChange)
       clearTimeout(transitionTimer.current)
     }
   }, [])

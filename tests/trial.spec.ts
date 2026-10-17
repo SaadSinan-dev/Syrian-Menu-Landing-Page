@@ -1,6 +1,10 @@
 import { test, expect, type Page } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'en'))
+})
+
 const runtime = process.env.TRIAL_RUNTIME_FILE
   ? JSON.parse(readFileSync(process.env.TRIAL_RUNTIME_FILE, 'utf8'))
   : null

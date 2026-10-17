@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test'
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'en'))
+})
+
 test('hero motion keeps the layout stable and scroll reveals finish visibly', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('.hero-line').first()).toHaveCSS('animation-name', 'hero-type-in')

@@ -13,7 +13,7 @@ export function resolvePreferences(
   _systemDark: boolean,
 ) {
   return {
-    language: (language === 'ar' ? 'ar' : 'en') as Language,
+    language: (language === 'en' ? 'en' : 'ar') as Language,
     theme: (theme === 'dark' ? 'dark' : 'light') as Theme,
   }
 }

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test('marketing navigation, official contacts and safe placeholder', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'en'))
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('good taste')
   await page.getByRole('link', { name: 'How it works', exact: true }).first().click()

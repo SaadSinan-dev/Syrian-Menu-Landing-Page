@@ -4,6 +4,7 @@ test('mobile navigation opens into its links for keyboard users and Escape resto
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 })
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'en'))
   await page.goto('/')
   const toggle = page.getByTestId('navigation-toggle')
   await toggle.focus()
@@ -96,6 +97,9 @@ test('language and theme changes persist across demo navigation, history and rel
   page,
 }) => {
   await page.emulateMedia({ colorScheme: 'light' })
+  await page.addInitScript(() => {
+    if (!localStorage.getItem('syrian-menu-language')) localStorage.setItem('syrian-menu-language', 'en')
+  })
   await page.goto('/')
   await page.getByTestId('language-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('lang', 'ar')
@@ -118,19 +122,22 @@ test('language and theme changes persist across demo navigation, history and rel
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
 })
 
-test('first visit honors system theme before React loads, then honors an explicit choice', async ({
+test('first visit uses white light mode and Arabic before React loads, then honors an explicit choice', async ({
   page,
 }) => {
   await page.emulateMedia({ colorScheme: 'dark' })
   await page.route('**/src/main.tsx', (route) => route.abort())
   await page.goto('/')
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ar')
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
+  await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
   await page.unroute('**/src/main.tsx')
   await page.reload()
   await page.getByTestId('theme-toggle').click()
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await page.reload()
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
 })
 
 test('cloud has a stable keyboard target and stops drifting with reduced motion', async ({
@@ -164,10 +171,11 @@ test('blocked localStorage keeps language and theme controls usable', async ({ p
   )
   await page.emulateMedia({ colorScheme: 'dark' })
   await page.goto('/')
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
-  await page.getByTestId('language-toggle').click()
-  await expect(page.locator('html')).toHaveAttribute('lang', 'ar')
-  await page.getByTestId('theme-toggle').click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ar')
+  await page.getByTestId('language-toggle').click()
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  await page.getByTestId('theme-toggle').click()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   expect(errors).toEqual([])
 })

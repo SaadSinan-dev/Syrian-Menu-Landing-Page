@@ -13,21 +13,16 @@
           /* Restricted storage must not block the initial theme. */
         }
         const root = document.documentElement
-        const resolvedTheme =
-          theme === 'light' || theme === 'dark'
-            ? theme
-            : matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light'
+        const resolvedTheme = theme === 'dark' ? 'dark' : 'light'
         root.dataset.theme = resolvedTheme
         root.style.colorScheme = resolvedTheme
-        root.lang = language === 'ar' ? 'ar' : 'en'
+        root.lang = language === 'en' ? 'en' : 'ar'
         root.dir = root.lang === 'ar' ? 'rtl' : 'ltr'
       })()
     </script>
     <style>
       html {
-        background: #f7f4ed;
+        background: #ffffff;
       }
       html[data-theme='dark'] {
         background: #13241d;

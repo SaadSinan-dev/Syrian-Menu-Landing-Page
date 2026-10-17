@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test'
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'en'))
+})
+
 test('only the requested photos are removed and four product previews replace the feature photo', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('.hero-photo img, .feature-food')).toHaveCount(0)

@@ -3,9 +3,9 @@ import assert from 'node:assert/strict'
 import { messages, formatMessage } from '../src/i18n/messages.ts'
 import { resolvePreferences } from '../src/preferences/settings.ts'
 
-test('invalid saved preferences fall back to English and the system theme', () => {
-  assert.deepEqual(resolvePreferences(null, null, true), { language: 'en', theme: 'dark' })
-  assert.deepEqual(resolvePreferences('fr', 'invalid', false), { language: 'en', theme: 'light' })
+test('new and invalid preferences use Arabic and light even on a dark device; explicit choices persist', () => {
+  assert.deepEqual(resolvePreferences(null, null, true), { language: 'ar', theme: 'light' })
+  assert.deepEqual(resolvePreferences('fr', 'invalid', false), { language: 'ar', theme: 'light' })
   assert.deepEqual(resolvePreferences('ar', 'light', true), { language: 'ar', theme: 'light' })
   assert.deepEqual(resolvePreferences('en', 'dark', false), { language: 'en', theme: 'dark' })
 })

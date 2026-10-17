@@ -1,10 +1,10 @@
 :root {
-  --canvas: #f7f4ed;
-  --surface: #fffefa;
-  --surface-soft: #eeefe5;
+  --canvas: #ffffff;
+  --surface: #ffffff;
+  --surface-soft: #f6f8f5;
   --surface-hover: #e3e8d7;
   --surface-accent: #e9ede0;
-  --surface-contact: #eef0e5;
+  --surface-contact: #f6f8f5;
   --text: #183e30;
   --muted: #59675c;
   --text-soft: #506c48;

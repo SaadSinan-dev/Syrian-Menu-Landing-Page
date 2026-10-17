@@ -760,12 +760,12 @@ html[data-theme='dark'] .experience-section {
   top: 0;
   z-index: 100;
 
-  background: rgba(214, 214, 214, 0.796);
+  background: rgba(255, 255, 255, 0.96);
 
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid var(--line);
 
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
 
@@ -810,7 +810,7 @@ html[data-theme='dark'] .site-header {
 /* MOBILE NAVIGATION */
 @media (max-width: 1000px) {
   .site-header .site-nav.is-open {
-    background: rgba(230, 232, 230, 0.94);
+    background: rgba(255, 255, 255, 0.98);
     color: #24362c;
 
     backdrop-filter: blur(20px);
