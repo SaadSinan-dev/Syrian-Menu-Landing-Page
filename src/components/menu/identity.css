@@ -1,0 +1,299 @@
+.menu-experience {
+  --text-soft: #506c48;
+  --line-strong: #b9c5ad;
+  --focus: #a46e32;
+  --menu-bg: #f6f3e7;
+  --menu-surface: #fffdf2;
+  --menu-header: #fffefa;
+  --menu-text: #103b29;
+  --menu-muted: #52694f;
+  --menu-line: #d4d8c1;
+  --menu-card-line: #c5b785;
+  --menu-chip: #e4e8d6;
+  --menu-active: #16452e;
+  --menu-on-active: #fff9df;
+  --menu-selection: #e5e5ce;
+  --menu-note: #e9ebd9;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.menu-experience[data-mode='dark'] {
+  --text-soft: #bfd0a4;
+  --line-strong: #728468;
+  --focus: #e1b77b;
+  --menu-bg: #1a2d23;
+  --menu-surface: #20372b;
+  --menu-header: #1d3327;
+  --menu-text: #e0e7d7;
+  --menu-muted: #afc0a5;
+  --menu-line: #40583e;
+  --menu-card-line: #64764e;
+  --menu-chip: #2d4635;
+  --menu-active: #c1d1a7;
+  --menu-on-active: #142c20;
+  --menu-selection: #384c33;
+  --menu-note: #2c4230;
+}
+
+/* All inherited menu-only rules from base.css/preferences.css are explicit here. */
+:where(.menu-experience) * {
+  box-sizing: border-box;
+}
+:where(.menu-experience) :is(h1, h2, h3, p) {
+  margin: 0;
+}
+:where(.menu-experience) :is(h1, h2, h3) {
+  text-wrap: balance;
+}
+:where(.menu-experience) p {
+  line-height: 1.75;
+}
+:where(.menu-experience) button {
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+:where(.menu-experience) img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+:where(.menu-experience) :is(button, a, input) {
+  transition:
+    background-color 0.18s,
+    color 0.18s,
+    box-shadow 0.18s,
+    opacity 0.18s;
+}
+.menu-experience {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.menu-experience[lang='ar'] {
+  font-family: var(--demo-body-font, Cairo, 'IBM Plex Sans Arabic', sans-serif);
+}
+.menu-experience[lang='ar'] :is(h1, h2, h3) {
+  font-family: var(--demo-heading-font, Cairo, 'IBM Plex Sans Arabic', sans-serif);
+  letter-spacing: 0;
+}
+.menu-experience[lang='ar'] :is(h1, h2) {
+  font-weight: 600;
+  line-height: 1.45;
+}
+.menu-experience[lang='en'] {
+  font-family: var(--demo-body-font, Inter, 'IBM Plex Sans Arabic', sans-serif);
+}
+.menu-experience[lang='en']
+  :is(.restaurant-intro :is(h1, h2), .dish-detail-heading :is(h1, h2), .spotlight-overlay h3) {
+  font-family: var(--demo-heading-font, Lora, Georgia, serif);
+}
+.menu-platform {
+  direction: inherit;
+}
+.menu-empty button {
+  color: var(--menu-on-active);
+}
+.spotlight-controls {
+  direction: inherit;
+}
+.menu-experience :is(button, a, input):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  .menu-experience[lang='ar'] :is(h1, h2) {
+    line-height: 1.55;
+  }
+}
+/* Production data can omit photographs or include long names. */
+.menu-photo-fallback {
+  display: grid;
+  place-items: center;
+  background: var(--menu-chip);
+  color: var(--menu-muted);
+  min-height: 0;
+  aspect-ratio: 1.45;
+  width: 100%;
+  border-radius: 5px;
+}
+.spotlight-main > .menu-photo-fallback {
+  height: 100%;
+}
+.restaurant-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+.restaurant-cover {
+  width: 100%;
+  aspect-ratio: 2;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+.restaurant-intro > div,
+.dish-card-copy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.dish-availability,
+.dish-dietary {
+  font-size: 11px;
+  color: var(--menu-muted);
+  margin-top: 4px;
+}
+.dish-availability {
+  font-weight: 600;
+}
+.dish-card bdi,
+.spotlight-bottom bdi {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.menu-experience .menu-scroll {
+  margin: 0;
+}
+.menu-experience .menu-search input {
+  border-radius: 0;
+  box-shadow: none;
+}
+.spotlight-main > img {
+  animation: spotlight-settle 520ms var(--ease-out) both;
+}
+.spotlight-overlay h3,
+.spotlight-bottom {
+  animation: soft-rise 350ms 40ms var(--ease-out) both;
+}
+.dish-card {
+  animation: dish-enter 360ms var(--ease-out) both;
+}
+.dish-card > :is(button, a) {
+  transition:
+    background-color 180ms ease,
+    box-shadow 200ms ease;
+}
+.dish-card > :is(button, a):active {
+  background: var(--menu-selection);
+}
+.dish-detail {
+  animation: detail-enter 300ms var(--ease-out) both;
+}
+.menu-empty {
+  animation: quiet-fade 240ms ease both;
+}
+.menu-round:active,
+.menu-categories > button:active {
+  transform: scale(0.97);
+}
+.menu-round,
+.menu-categories > button {
+  transition:
+    transform 150ms ease,
+    background-color 200ms,
+    color 200ms,
+    box-shadow 200ms;
+}
+.dish-sizes label > span {
+  transition:
+    background-color 180ms,
+    box-shadow 180ms,
+    color 180ms;
+}
+.menu-search {
+  animation: soft-rise 250ms var(--ease-out) both;
+}
+
+@keyframes soft-rise {
+  from {
+    opacity: 0.15;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes quiet-fade {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes spotlight-settle {
+  from {
+    opacity: 0.55;
+    transform: scale(1.035);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes dish-enter {
+  from {
+    opacity: 0.35;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes detail-enter {
+  from {
+    opacity: 0.45;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .menu-experience .dish-card:hover img {
+    transform: scale(1.045);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-experience * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+[data-motion='false'] .menu-experience * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+.menu-navigation-title {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: inherit;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.menu-navigation-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.menu-platform:has(.menu-navigation-title) {
+  flex-wrap: wrap;
+  column-gap: 4px;
+}
+.menu-platform .menu-navigation-title {
+  flex-basis: 100%;
+}
+
+.menu-experience .dish-card h3 {
+  font-family: var(--demo-heading-font, inherit);
+}

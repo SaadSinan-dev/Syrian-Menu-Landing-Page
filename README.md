@@ -64,11 +64,11 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The nine unit tests cover safe contact configuration, bilingual filtering, size prices, Arabic numerals, preference defaults and complete matching translation dictionaries. The twenty Chromium tests cover original menu behavior, all four language/theme combinations, persistent preferences, initial system theme before React, unavailable storage, stable cloud targets, focus, reduced motion and layouts at 320, 390, 768 and 1440 pixels.
+The nine unit tests cover safe contact configuration, bilingual filtering, size prices, Arabic numerals, preference defaults and complete matching translation dictionaries. The 33 Chromium tests cover original menu behavior, all four language/theme combinations, persistent preferences, Arabic/light defaults before React, unavailable storage, stable cloud targets, focus, reduced motion and layouts at 320, 390, 768 and 1440 pixels.
 
 ## Language, themes and motion
 
-Use the navbar language and sun/moon controls. Preferences apply to the whole website and menu demo and persist between visits. First-time visitors get their system color preference; explicit theme choices take priority. The small script in `index.html` applies the theme and direction before the application loads. Blocked localStorage gracefully falls back to preferences for the current visit.
+Use the navbar language and sun/moon controls. Preferences apply to the whole website and menu demo and persist between visits. First-time visitors get Arabic and white/light mode regardless of device preference; explicit saved language and theme choices take priority. The small script in `index.html` applies the theme and direction before the application loads. Blocked localStorage gracefully falls back to preferences for the current visit.
 
 - Copy is centralized in `src/i18n/messages.ts`; English and Arabic have matching typed dictionaries. Dish data remains in `src/data/menu.ts`. Arabic uses the locally hosted Cairo font, logical layouts and mirrored directional icons.
 - Semantic light/dark palettes are in `src/tokens.css`. Shared preferences live under `src/preferences/`, and `src/preferences.css` handles the controls and direction-specific presentation.
@@ -85,3 +85,11 @@ With the development server running on port 5180, `node scripts/capture.mjs` sav
 The original application in `../syrian-menu` was inspected, including its public `MenuExperience`, `MenuRenderer`, `MenuSpotlight`, image treatment, dish details, Arabic/English language conventions and branding. This site adapts those conventions into local components without importing its router, authentication or database code. The trial form calls a small backend Support extension; it requires no changes to the Admin, Dashboard or Public Menu interfaces.
 
 Logo, food images and fonts were copied from that project's `apps/menu/public/` assets. The WebP images were optimized; dish cards use dedicated 480-pixel thumbnails. Brand assets remain separate from the fictional restaurant identity. Everything needed at runtime is included under `public/`; no third-party image or font hosts are needed.
+
+## Website contact delivery
+
+The Contact form posts to the existing product API at `/api/v1/public/contact-messages`, using the same `VITE_API_URL` configuration as trial applications. Fields are name, email, optional phone, subject and message. Success requires a confirmed committed response; errors preserve input and reuse the submission ID for a retry. Personal information is not stored in localStorage.
+
+The product backend requires the reviewed `202610180001_website_contact_messages` migration. Admin Support has website-message filters, sender details and audited New/In progress/Resolved/Spam statuses. Admin notes are internal, not email replies. Deploy the API/schema and confirm the website origin is allowed before announcing availability. This standalone site is separate from the three product Pages targets.
+
+Verification: build/typecheck, lint, nine unit tests and 33 browser tests passed on 2026-10-18, including real delivery and Admin status persistence on an isolated local database. `tests/contact.spec.ts` uses `TRIAL_RUNTIME_FILE` for the owned local API/Admin fixture; it never substitutes fake success for the real-delivery test.

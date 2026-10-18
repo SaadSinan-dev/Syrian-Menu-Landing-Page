@@ -44,7 +44,7 @@ for (const language of ['en', 'ar'] as const) {
       await expect(page.locator('html')).toHaveAttribute('dir', language === 'ar' ? 'rtl' : 'ltr')
       await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
       await expect(page.getByRole('heading', { level: 1 })).toContainText(
-        language === 'ar' ? 'مذاقك' : 'good taste',
+        language === 'ar' ? 'ذوقك' : 'good taste',
       )
       if (language === 'ar') {
         const body = await page.locator('body').innerText()

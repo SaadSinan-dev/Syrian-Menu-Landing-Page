@@ -60,6 +60,7 @@ test('featured carousel is manual, filters persist on back and Escape works', as
 })
 
 test('browser history supports entering and leaving the demo', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'en'))
   await page.goto('/')
   await page.getByRole('link', { name: 'Try the Experience', exact: true }).first().click()
   await expect(page.getByTestId('demo-menu')).toBeVisible()
@@ -97,6 +98,7 @@ test('layouts fit small phones, tablet and desktop without errors', async ({ pag
 })
 
 test('mobile navigation closes on Escape and navigation with reduced motion', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'en'))
   await page.setViewportSize({ width: 390, height: 844 })
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
@@ -116,6 +118,7 @@ test('mobile navigation closes on Escape and navigation with reduced motion', as
 })
 
 test('keyboard skip keeps the demo route and focuses main content', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('syrian-menu-language', 'en'))
   await page.goto('/#demo')
   await page.getByRole('link', { name: 'Skip to content' }).focus()
   await page.keyboard.press('Enter')
