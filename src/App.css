@@ -668,19 +668,8 @@
   align-items: start;
   padding-inline: clamp(20px, 5vw, 96px);
 }
-.contact-intro { min-width: 0; }
 .contact-heading { max-width: 540px; }
-.contact-options { margin-block-start: 32px; }
-.contact-form.trial-form { border-radius: 16px; padding: clamp(24px, 3vw, 48px); }
-.contact-form h3 { font-size: clamp(22px, 2vw, 28px); font-weight: 600; }
-.contact-form-intro { color: var(--muted); font-size: 14px; margin-block: 12px 28px; max-width: 540px; }
-.contact-form .trial-field label { font-size: 14px; }
-.contact-form .trial-field input { min-height: 50px; }
-.contact-form .trial-field textarea { min-height: 144px; }
-.contact-form .trial-field input, .contact-form .trial-field textarea { background: var(--surface); border-radius: 8px; }
-.contact-form .trial-field input:hover, .contact-form .trial-field textarea:hover { border-color: var(--text-soft); }
-.contact-privacy { color: var(--muted); font-size: 12px; margin: 0; }
-.contact-trap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.contact-options { margin-block-start: 0; }
 @media (max-width: 850px) {
   .contact-layout { grid-template-columns: minmax(0, 1fr); }
   .contact-heading { max-width: none; }
