@@ -94,7 +94,17 @@ test('real website message persists once, appears in Admin and retains its updat
   let release!: () => void
   const gate = new Promise<void>(resolve => { release = resolve })
   let sent = 0
-  await page.route('**/public/contact-messages', async route => { sent++; await gate; await route.continue() })
+  const clientIds: string[] = []
+  await page.route('**/public/contact-messages', async route => {
+    sent++
+    const payload = route.request().postDataJSON()
+    expect(payload).toEqual({ name: 'زائر الموقع', email: 'visitor@example.test', phone: '+963 944 123 456', subject, message: 'مرحبا، أود معرفة المزيد.\n<script>alert("unsafe")</script>', website: '', clientId: expect.any(String) })
+    expect(payload.clientId).toMatch(/^[0-9a-f-]{36}$/i)
+    clientIds.push(payload.clientId)
+    if (runtime.directApi) expect(route.request().url()).toBe(runtime.api + '/public/contact-messages')
+    await gate
+    await route.continue()
+  })
   await page.locator('.contact-submit').click()
   await expect(page.locator('.contact-submit')).toBeDisabled()
   await page.locator('.contact-form').evaluate((form: HTMLFormElement) => form.requestSubmit())
@@ -111,6 +121,8 @@ test('real website message persists once, appears in Admin and retains its updat
   const inbox = await context.request.get(`${runtime.api}/admin/support?kind=CONTACT`)
   const records = (await inbox.json()).data.filter((row: { submission?: { subject: string } }) => row.submission?.subject === subject)
   expect(records).toHaveLength(1)
+  expect(records[0]).toMatchObject({ kind: 'CONTACT', submission: { name: 'زائر الموقع', email: 'visitor@example.test', phone: '+963 944 123 456', subject, message: 'مرحبا، أود معرفة المزيد.\n<script>alert("unsafe")</script>' } })
+  expect(clientIds).toHaveLength(2)
   const admin = await context.newPage()
   admin.on('pageerror', error => errors.push(error.message))
   await admin.goto(`${runtime.admin}/support?kind=CONTACT`)

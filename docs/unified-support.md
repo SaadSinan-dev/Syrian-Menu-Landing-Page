@@ -36,3 +36,16 @@ Product UI/contracts: `apps/admin/src/Support.tsx`, `apps/admin/src/support-subm
 Database/release: `prisma/schema.prisma`, `prisma/migrations/202610190001_unified_support/migration.sql`, `deployment/approved-migrations.json`, `scripts/deployment/migrations.mjs`, `scripts/deployment/integration-runner.mjs`.
 
 Product tests: `tests/integration/support-submissions.test.ts`, `tests/unit/contact-submission.test.ts`, `tests/unit/support-migration.test.ts`, `tests/unit/support-submission-failure.test.ts`.
+
+## Actual results — 19 October 2026
+
+- Website build (including TypeScript), lint and all 9 unit tests passed.
+- Product TypeScript checks passed. Full API/Admin/Dashboard/Menu production build passed with `VITE_API_URL=/api/v1`; Admin was rebuilt successfully after the final accessibility fix. An initial build using the workstation's localhost API setting was correctly rejected by the production configuration guard.
+- Product lint completed with existing warnings outside the changed files. Targeted lint of the changed API, Admin and test files was clean.
+- Full product suite: 351 passed, 72 skipped using `npm test -- --maxWorkers=1`. Integration tests are opt-in and were exercised separately below. The initial run identified the required migration-manifest registration; after that fix, a parallel rerun had four timing-sensitive failures in `admin-skeleton.test.tsx` and `design-lifecycle.test.tsx`. All passed in the final single-worker run without changes to those tests or application features.
+- Backend suite: 25 passed.
+- Guarded real PostgreSQL/HTTP integration: 16 passed across unified submissions, trial applications, Support and live Support. Both empty and upgrade migration checks passed with the existing sentinel preserved. Persistence failure tests also confirm that neither form receives acknowledgement or triggers notifications after transaction failure.
+- Browser tests: 9 Contact/Trial tests passed, plus 1 combined unified-inbox test passed. These use the actual API and disposable PostgreSQL, including both form submissions, duplicate prevention, search, type/status filters, structured details and status persistence after reload. The combined test initially timed out, exposed ambiguous accessible filter names, and passed after explicit names were added. Its final run took 10.9 seconds.
+- Contact and Trial layouts were checked across languages, themes and screen sizes. The combined inbox passed a 390px overflow check and its screenshot was visually reviewed: `artifacts/contact/unified-support-mobile.png`.
+
+No production deployment or production database migration was performed. Existing unrelated working-tree changes were preserved.
