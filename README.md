@@ -86,10 +86,10 @@ The original application in `../syrian-menu` was inspected, including its public
 
 Logo, food images and fonts were copied from that project's `apps/menu/public/` assets. The WebP images were optimized; dish cards use dedicated 480-pixel thumbnails. Brand assets remain separate from the fictional restaurant identity. Everything needed at runtime is included under `public/`; no third-party image or font hosts are needed.
 
-## Website contact delivery
+## Website trial request delivery
 
-The Contact form posts to the existing product API at `/api/v1/public/contact-messages`, using the same `VITE_API_URL` configuration as trial applications. Fields are name, email, optional phone, subject and message. Success requires a confirmed committed response; errors preserve input and reuse the submission ID for a retry. Personal information is not stored in localStorage.
+The seven-day free trial form is the website's only request form. It posts to the existing product API at `/api/v1/public/trial-applications` and appears as a Trial request in Admin → Support. The separate Contact form was removed as requested; email and social contact links remain available.
 
-The existing product backend uses `202610190001_unified_support`. Admin Support has type/status filters, sender details and New/In progress/Resolved statuses. Admin notes are internal, not email replies. Production website builds now default to `https://syrian-menu-api.onrender.com/api/v1`; an explicit override must be an HTTPS API base. The API must allow `https://syrianmenu.vercel.app` in `CORS_ORIGINS`. This standalone site is separate from the three product Pages targets. See [Contact connection verification](docs/contact-connection.md).
+Production builds use `https://syrian-menu-api.onrender.com/api/v1`. Success requires the server's committed acknowledgement; errors retain input and retries reuse the request ID. No account or subscription is activated automatically. The API accepts comma- or newline-separated explicit CORS origins and retains the production website origin alongside existing product origins.
 
-Verification: build/typecheck, lint, nine unit tests and 33 browser tests passed on 2026-10-18, including real delivery and Admin status persistence on an isolated local database. `tests/contact.spec.ts` uses `TRIAL_RUNTIME_FILE` for the owned local API/Admin fixture; it never substitutes fake success for the real-delivery test.
+`tests/trial.spec.ts` verifies validation, error handling and real delivery using an owned runtime provided through `TRIAL_RUNTIME_FILE`. `tests/unified-support.spec.ts` verifies trial-only submission, duplicate prevention and persisted Admin Support status. Successful delivery is never mocked.
