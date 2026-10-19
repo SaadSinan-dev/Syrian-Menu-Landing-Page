@@ -33,4 +33,3 @@ test('new visits remain Arabic/light when the device theme changes; contact fill
     }
   }
 })
-
